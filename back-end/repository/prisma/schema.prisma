@@ -1,0 +1,51 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id         Int         @id @default(autoincrement())
+    username   String      @unique
+    firstName  String
+    lastName   String
+    email      String      @unique
+    password   String
+    role       String
+    armies     Army[]
+    complaints Complaint[]
+}
+
+model Army {
+    id        Int    @id @default(autoincrement())
+    name      String
+    userId    Int
+    attack    Int    @default(0)
+    defense   Int    @default(0)
+    hitpoints Int    @default(0)
+    maxCost   Int
+    user      User   @relation(fields: [userId], references: [id])
+    units     Unit[]
+}
+
+model Unit {
+    id        Int    @id @default(autoincrement())
+    name      String
+    type      String
+    points    Int
+    armyId    Int
+    attack    Int
+    defense   Int
+    hitpoints Int
+    army      Army   @relation(fields: [armyId], references: [id])
+}
+
+model Complaint {
+    id      Int    @id @default(autoincrement())
+    message String
+    userId  Int
+    user    User   @relation(fields: [userId], references: [id])
+}
