@@ -1,5 +1,5 @@
-import { Army as ArmyPrisma, Unit as UnitPrisma } from '@prisma/client';
-import { Unit } from './unit'; // Assuming Unit is defined in a separate file
+import { Army as ArmyPrisma } from '@prisma/client';
+import { Unit } from './unit';
 
 export class Army {
     private id?: number;
@@ -15,20 +15,20 @@ export class Army {
         id?: number;
         name: string;
         userId: number;
-        attack?: number;
-        defense?: number;
-        hitpoints?: number;
+        attack: number;
+        defense: number;
+        hitpoints: number;
         maxCost: number;
         units: Unit[];
     }) {
         this.id = army.id;
         this.name = army.name;
         this.userId = army.userId;
-        this.attack = army.attack || 0;
-        this.defense = army.defense || 0;
-        this.hitpoints = army.hitpoints || 0;
+        this.attack = army.attack ;
+        this.defense = army.defense ;
+        this.hitpoints = army.hitpoints ;
         this.maxCost = army.maxCost;
-        this.units = army.units || [];
+        this.units = army.units ;
     }
 
     getId(): number | undefined {
@@ -63,11 +63,7 @@ export class Army {
         return this.units;
     }
 
-    // calculateStats(): void {
-    //     this.attack = this.units.reduce((sum, unit) => sum + unit.getAttack(), 0);
-    //     this.defense = this.units.reduce((sum, unit) => sum + unit.getDefense(), 0);
-    //     this.hitpoints = this.units.reduce((sum, unit) => sum + unit.getHitpoints(), 0);
-    // }
+    
 
     static from({ id, name, userId, attack, defense, hitpoints, maxCost }: ArmyPrisma, units: Unit[]): Army {
         return new Army({ id, name, userId, attack, defense, hitpoints, maxCost, units });

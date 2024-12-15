@@ -3,13 +3,13 @@
 import { Complaint as ComplaintPrisma } from '@prisma/client';
 
 export class Complaint {
-    private id?: number;
+    private id: number;
     private message: string;
     private userId: number;
     
 
     constructor(complaint: {
-        id?: number;
+        id: number;
         message: string;
         userId: number;
         
@@ -20,7 +20,7 @@ export class Complaint {
         
     }
 
-    getId(): number | undefined {
+    getId(): number  {
         return this.id;
     }
 

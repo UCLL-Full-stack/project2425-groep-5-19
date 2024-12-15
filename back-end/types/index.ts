@@ -1,4 +1,5 @@
 type Role = 'admin' | 'user';
+type Faction = 'Imperium' | 'Chaos';
 
 type UserInput = {
     id?: number;
@@ -11,7 +12,6 @@ type UserInput = {
 };
 
 
-
 type AuthenticationResponse = {
     token: string;
     username: string;
@@ -21,6 +21,7 @@ type AuthenticationResponse = {
 
 export {
     Role,
+    Faction,
    
     UserInput,
    

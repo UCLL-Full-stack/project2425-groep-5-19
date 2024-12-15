@@ -23,9 +23,9 @@ model Army {
     id        Int    @id @default(autoincrement())
     name      String
     userId    Int
-    attack    Int    @default(0)
-    defense   Int    @default(0)
-    hitpoints Int    @default(0)
+    attack    Int
+    defense   Int
+    hitpoints Int
     maxCost   Int
     user      User   @relation(fields: [userId], references: [id])
     units     Unit[]
