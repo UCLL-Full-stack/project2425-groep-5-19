@@ -4,20 +4,43 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { unitRouter } from './controller/unit.routes';
-import { armyRouter } from './controller/army.routes';
+import { userRouter } from './controller/user.routes';
+import { expressjwt } from 'express-jwt';
+import helmet from 'helmet';
+
 
 const app = express();
+app.use(helmet());
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            // Allow connections to own server and the external API
+            connectSrc: ["'self'", 'https://api.ucll.be'],
+        },
+    })
+);
+
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:8080' }));
 app.use(bodyParser.json());
-app.use('/units', unitRouter);
-app.use('/armies', armyRouter);
+
+app.use(
+    expressjwt({
+        secret: process.env.JWT_SECRET || 'default_secret',
+        algorithms: ['HS256'],
+    }).unless({
+        path: ['/api-docs', /^\/api-docs\/.*/, '/users/login', '/users/signup', '/status'],
+    })
+);
+
+
+app.use('/users', userRouter);
 
 app.get('/status', (req, res) => {
-    res.json({ message: 'Back-end is running...' });
+    res.json({ message: 'Courses API is running...' });
 });
 
 const swaggerOpts = {
@@ -44,5 +67,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // });
 
 app.listen(port || 3000, () => {
-    console.log(`Back-end is running on port ${port}.`);
+    console.log(`Courses API is running on port ${port}.`);
 });
