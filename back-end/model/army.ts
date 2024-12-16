@@ -1,5 +1,6 @@
 import { Army as ArmyPrisma } from '@prisma/client';
 import { Unit } from './unit';
+import { Faction } from '../types';
 
 export class Army {
     private id?: number;
@@ -10,6 +11,7 @@ export class Army {
     private hitpoints: number;
     private maxCost: number;
     private units: Unit[];
+    private faction: Faction;
 
     constructor(army: {
         id?: number;
@@ -20,6 +22,7 @@ export class Army {
         hitpoints: number;
         maxCost: number;
         units: Unit[];
+        faction: Faction;
     }) {
         this.id = army.id;
         this.name = army.name;
@@ -29,6 +32,7 @@ export class Army {
         this.hitpoints = army.hitpoints ;
         this.maxCost = army.maxCost;
         this.units = army.units ;
+        this.faction = army.faction;
     }
 
     getId(): number | undefined {
@@ -62,10 +66,13 @@ export class Army {
     getUnits(): Unit[] {
         return this.units;
     }
+    getFaction(): Faction {
+        return this.faction;
+    }
 
     
 
-    static from({ id, name, userId, attack, defense, hitpoints, maxCost }: ArmyPrisma, units: Unit[]): Army {
-        return new Army({ id, name, userId, attack, defense, hitpoints, maxCost, units });
+    static from({ id, name, userId, attack, defense, hitpoints, maxCost, faction }: ArmyPrisma, units: Unit[]): Army {
+        return new Army({ id, name, userId, attack, defense, hitpoints, maxCost, units, faction: faction as Faction });
     }
 }

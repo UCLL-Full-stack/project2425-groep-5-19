@@ -19,10 +19,30 @@ type AuthenticationResponse = {
     role: string;
 };
 
+type Unit = {
+    name: string;          
+    type: string;         
+    attack: number;        
+    defense: number;       
+    hitpoints: number;     
+    cost: number;          
+};
+
+type ArmyInput = {
+    name: string;               
+    userId: number;            
+    attack: number;             
+    defense: number;           
+    hitpoints: number;          
+    maxCost: number;           
+    units: Unit[];
+    faction: Faction
+};
+
 export {
     Role,
     Faction,
-   
+   ArmyInput,
     UserInput,
    
     

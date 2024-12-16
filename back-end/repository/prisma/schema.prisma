@@ -27,6 +27,7 @@ model Army {
     defense   Int
     hitpoints Int
     maxCost   Int
+    faction   String
     user      User   @relation(fields: [userId], references: [id])
     units     Unit[]
 }
@@ -40,6 +41,7 @@ model Unit {
     attack    Int
     defense   Int
     hitpoints Int
+    faction   String
     army      Army   @relation(fields: [armyId], references: [id])
 }
 
