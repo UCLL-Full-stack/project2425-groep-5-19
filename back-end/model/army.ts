@@ -6,9 +6,6 @@ export class Army {
     private id?: number;
     private name: string;
     private userId: number;
-    private attack: number;
-    private defense: number;
-    private hitpoints: number;
     private maxCost: number;
     private units: Unit[];
     private faction: Faction;
@@ -17,9 +14,6 @@ export class Army {
         id?: number;
         name: string;
         userId: number;
-        attack: number;
-        defense: number;
-        hitpoints: number;
         maxCost: number;
         units: Unit[];
         faction: Faction;
@@ -27,11 +21,8 @@ export class Army {
         this.id = army.id;
         this.name = army.name;
         this.userId = army.userId;
-        this.attack = army.attack ;
-        this.defense = army.defense ;
-        this.hitpoints = army.hitpoints ;
         this.maxCost = army.maxCost;
-        this.units = army.units ;
+        this.units = army.units;
         this.faction = army.faction;
     }
 
@@ -47,18 +38,6 @@ export class Army {
         return this.userId;
     }
 
-    getAttack(): number {
-        return this.attack;
-    }
-
-    getDefense(): number {
-        return this.defense;
-    }
-
-    getHitpoints(): number {
-        return this.hitpoints;
-    }
-
     getMaxCost(): number {
         return this.maxCost;
     }
@@ -66,13 +45,28 @@ export class Army {
     getUnits(): Unit[] {
         return this.units;
     }
+
     getFaction(): Faction {
         return this.faction;
     }
 
     
+    getAttack(): number {
+        return this.units.reduce((sum, unit) => sum + unit.getAttack(), 0);
+    }
 
-    static from({ id, name, userId, attack, defense, hitpoints, maxCost, faction }: ArmyPrisma, units: Unit[]): Army {
-        return new Army({ id, name, userId, attack, defense, hitpoints, maxCost, units, faction: faction as Faction });
+    
+    getDefense(): number {
+        return this.units.reduce((sum, unit) => sum + unit.getDefense(), 0);
+    }
+
+    
+    getHitpoints(): number {
+        return this.units.reduce((sum, unit) => sum + unit.getHitpoints(), 0);
+    }
+
+    
+    static from({ id, name, userId, maxCost, faction }: ArmyPrisma, units: Unit[]): Army {
+        return new Army({ id, name, userId, maxCost, units, faction: faction as Faction });
     }
 }

@@ -52,18 +52,6 @@
  *           type: integer
  *           description: The ID of the user creating the army.
  *           example: 1
- *         attack:
- *           type: integer
- *           description: The attack power of the army.
- *           example: 50
- *         defense:
- *           type: integer
- *           description: The defense power of the army.
- *           example: 40
- *         hitpoints:
- *           type: integer
- *           description: The hit points of the army.
- *           example: 200
  *         maxCost:
  *           type: number
  *           format: float

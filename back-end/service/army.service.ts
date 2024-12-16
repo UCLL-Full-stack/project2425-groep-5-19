@@ -16,14 +16,12 @@ const getArmyById = async ({ id }: { id: number }): Promise<Army> => {
 const createArmy = async ({
     name,
     userId,
-    attack,
-    defense,
-    hitpoints,
+
     maxCost,
     faction,
 }: ArmyInput): Promise<Army> => {
     
-    const army = new Army({ name, userId, attack, defense, hitpoints, maxCost, units: [], faction });
+    const army = new Army({ name, userId, maxCost, units: [], faction });
     return await armyDB.createArmy(army);
 };
 

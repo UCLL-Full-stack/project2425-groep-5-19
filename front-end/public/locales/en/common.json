@@ -1,0 +1,32 @@
+{
+"app.title": "Courses App",
+"general.error": "An error has occurred. Please try again later.",
+    "login": {
+    "title": "Login",
+    "button": "Login",
+    "success": "Login succesful. Redirecting to homepage...",
+    "validate": {
+            "name": "Name is required",
+            "password": "Password is required"
+    },
+    "label": { 
+        "username": "Username:", 
+        "password": "Password:" }
+},
+"header": {
+"welcome": "Welcome",
+"nav": {
+"home": "Home",
+"lecturers": "Lecturers",
+"schedules": "Schedules",
+"login": "Login",
+"logout": "Logout"
+}
+}
+}
+
+
+
+    
+
+    
