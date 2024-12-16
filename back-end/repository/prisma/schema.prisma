@@ -37,12 +37,11 @@ model Unit {
     name      String
     type      String
     points    Int
-    armyId    Int
     attack    Int
     defense   Int
     hitpoints Int
     faction   String
-    army      Army   @relation(fields: [armyId], references: [id])
+    armies    Army[]
 }
 
 model Complaint {

@@ -39,12 +39,22 @@ type ArmyInput = {
     faction: Faction
 };
 
+type UnitInput = {
+    name: string;        
+    type: string;       
+    points: number;     
+     
+    attack: number;      
+    defense: number;     
+    hitpoints: number;   
+    faction: Faction;    
+}
 export {
     Role,
     Faction,
    ArmyInput,
     UserInput,
-   
+   UnitInput,
     
     AuthenticationResponse,
 };

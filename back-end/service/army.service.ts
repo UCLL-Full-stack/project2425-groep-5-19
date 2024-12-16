@@ -1,7 +1,7 @@
 import armyDB from '../repository/army.db';
 import { ArmyInput } from '../types';
 import { Army } from '../model/army';
-import { Unit } from '../model/unit';
+
 
 const getAllArmies = async (): Promise<Army[]> => armyDB.getAllArmies();
 
