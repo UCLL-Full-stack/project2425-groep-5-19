@@ -10,6 +10,29 @@ export type User = {
     password?: string;
     role?: string;
 };
+export type Unit = {
+    id: number;
+    name: string;
+    type: string;
+    attack: number;
+    defense: number;
+    hitpoints: number;
+    cost: number;
+};
+
+export type Army = {
+    id: number;
+    name: string;
+    userId: number;
+    attack: number;
+    defense: number;
+    hitpoints: number;
+    faction: string;
+    units: Unit[];
+};
+
+
+
 
 
 

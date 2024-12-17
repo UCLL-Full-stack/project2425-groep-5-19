@@ -32,24 +32,39 @@ const Header: React.FC = () => {
         {t("app.title")}
       </a>
       <nav className="items-center flex md:flex-row flex-col">
+        {/* Home Page Link */}
         <Link
           href="/"
           className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
         >
           {t("header.nav.home")}
         </Link>
+
+        {/* Complaint Page Link */}
         <Link
-          href="/lecturers"
+          href="/complaint"
           className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
         >
-          {t("header.nav.lecturers")}
+          {t("header.nav.complaint")}
         </Link>
+
+        {/* Unit Page Link */}
         <Link
-          href="/schedule/overview"
+          href="/unit"
           className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
         >
-          {t("header.nav.schedules")}
+          {t("header.nav.unit")}
         </Link>
+
+        {/* Army Page Link */}
+        <Link
+          href="/army"
+          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+        >
+          {t("header.nav.army")}
+        </Link>
+
+        {/* Login and Logout */}
         {!loggedInUser && (
           <Link
             href="/login"
@@ -72,8 +87,9 @@ const Header: React.FC = () => {
             {t("header.welcome")}, {loggedInUser.fullname}!
           </div>
         )}
-        <div className="flex items-center">
 
+        {/* Language Switcher */}
+        <div className="flex items-center">
           <Language />
         </div>
       </nav>
@@ -82,6 +98,7 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
 
 
 
