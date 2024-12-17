@@ -44,7 +44,6 @@ const ArmyDetailPage: React.FC = () => {
         if (!army || typeof armyID !== "string") return;
 
         try {
-
             const addedUnit = await UnitService.addUnitToArmy(unit.id, parseInt(armyID));
 
             setArmy((prevArmy) => {
@@ -55,11 +54,24 @@ const ArmyDetailPage: React.FC = () => {
                 };
             });
 
-            setError(null);
-        } catch (err) {
-            setError("An error occurred while adding the unit.");
+            setError(null); // Clear any previous errors
+        } catch (err: any) {
+            // Check if the error has a response and parse the message
+            if (err.response) {
+                try {
+                    const errorData = await err.response.json(); // Parse the JSON response
+                    setError(errorData.message || "An error occurred while adding the unit.");
+                } catch (jsonErr) {
+                    setError("Failed to parse error response.");
+                }
+            } else if (err instanceof Error) {
+                setError(err.message); // Use the default error message
+            } else {
+                setError("An unexpected error occurred."); // Fallback for unknown error types
+            }
         }
     };
+
     const handleRemoveUnit = async (unit: Unit) => {
         if (!army || typeof armyID !== "string") return;
         try {
