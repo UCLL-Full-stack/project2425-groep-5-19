@@ -60,12 +60,22 @@ const createUser = async (user: User): Promise<User> => {
 
 const deleteUserById = async ({ id }: { id: number }): Promise<void> => {
     try {
+        
+        await database.complaint.deleteMany({
+            where: {
+                userId: id, 
+            },
+        });
+
+        
         await database.user.delete({
-            where: { id },
+            where: {
+                id: id, 
+            },
         });
     } catch (error) {
-        console.error(error);
-        throw new Error('Database error. See server log for details.');
+        console.error("Error deleting user or complaints:", error);
+        throw new Error("Failed to delete user or related complaints.");
     }
 };
 

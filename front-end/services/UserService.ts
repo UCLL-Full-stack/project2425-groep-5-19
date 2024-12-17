@@ -23,9 +23,23 @@ const getUserById = async (userId: number) => {
     return user; 
 };
 
+const deleteUser = async (id: number): Promise<void> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Adjust token if necessary
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete the user');
+    }
+};
+
 const UserService = {
     loginUser,
-    getUserById
+    getUserById, deleteUser
 };
 
 

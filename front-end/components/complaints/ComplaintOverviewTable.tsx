@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Complaint, User } from "@types";
-import UserService from "@services/UserService"; // Assuming you have a UserService for fetching user data
+import UserService from "@services/UserService";
 
 type Props = {
     complaints: Array<Complaint>;
     selectComplaint: (complaint: Complaint) => void;
+    removeComplaint: (complaintId: number) => void;
 };
 
-const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint }: Props) => {
+const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, removeComplaint }: Props) => {
     const [users, setUsers] = useState<{ [userId: number]: User }>({});
 
     const getUserName = async (userId: number) => {
@@ -18,6 +19,15 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint }
             setUsers((prev) => ({ ...prev, [userId]: user }));
         } catch (error) {
             console.error("Error fetching user data:", error);
+        }
+    };
+
+    const handleDeleteUser = async (userId: number) => {
+        try {
+            await UserService.deleteUser(userId);
+            removeComplaint(userId); // Notify parent to refresh complaints
+        } catch (error) {
+            console.error("Error deleting user:", error);
         }
     };
 
@@ -50,9 +60,14 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint }
                                 : "Loading..."}
                         </td>
                         <td className="border px-4 py-2">
-                            {/* Add actions like "View" or "Delete" */}
-                            <button onClick={() => selectComplaint(complaint)} className="text-blue-500">
-                                View
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteUser(complaint.userId);
+                                }}
+                                className="text-red-500 ml-2"
+                            >
+                                Delete
                             </button>
                         </td>
                     </tr>
@@ -63,6 +78,8 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint }
 };
 
 export default ComplaintOverviewTable;
+
+
 
 
 

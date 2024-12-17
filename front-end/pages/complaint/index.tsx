@@ -11,7 +11,6 @@ const Complaints: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(null);
 
-
     const getComplaints = async () => {
         setError(null);
         const response = await ComplaintService.getAllComplaints();
@@ -22,6 +21,11 @@ const Complaints: React.FC = () => {
             const complaints = await response.json();
             setComplaints(complaints);
         }
+    };
+
+    const handleRemoveComplaint = (userId: number) => {
+        // Filter out complaints with the deleted user's ID
+        setComplaints((prev) => prev.filter((complaint) => complaint.userId !== userId));
     };
 
     useEffect(() => {
@@ -37,14 +41,13 @@ const Complaints: React.FC = () => {
             <main className="p-6 min-h-screen flex flex-col items-center">
                 <h1 className="text-3xl font-bold mb-4">Complaints</h1>
                 <section>
-                    {/* Error Handling */}
                     {error && <div className="text-red-800">{error}</div>}
 
-                    {/* Complaint Overview Table */}
                     {complaints.length > 0 && (
                         <ComplaintOverviewTable
                             complaints={complaints}
                             selectComplaint={setSelectedComplaint}
+                            removeComplaint={handleRemoveComplaint} // Pass removal handler
                         />
                     )}
 
@@ -52,13 +55,12 @@ const Complaints: React.FC = () => {
                         <div className="text-gray-600">No complaints available.</div>
                     )}
                 </section>
-
-
             </main>
         </>
     );
 };
 
 export default Complaints;
+
 
 
