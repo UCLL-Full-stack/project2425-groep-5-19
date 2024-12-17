@@ -18,7 +18,7 @@ export type Unit = {
     attack: number;
     defense: number;
     hitpoints: number;
-    cost: number;
+    points: number;
 };
 
 export type Army = {

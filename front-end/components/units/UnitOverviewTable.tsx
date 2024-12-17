@@ -36,7 +36,7 @@ const UnitOverviewTable: React.FC<Props> = ({
                                 <td className="border px-4 py-2">{unit.attack}</td>
                                 <td className="border px-4 py-2">{unit.defense}</td>
                                 <td className="border px-4 py-2">{unit.hitpoints}</td>
-                                <td className="border px-4 py-2">{unit.cost}</td>
+                                <td className="border px-4 py-2">{unit.points}</td>
                             </tr>
                         ))}
                     </tbody>
