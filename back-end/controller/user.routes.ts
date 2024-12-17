@@ -203,5 +203,41 @@ userRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextF
     }
 });
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get a user by their ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The user ID.
+ *     responses:
+ *       200:
+ *         description: Details of the requested user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found.
+ */
+userRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const user = await userService.getUserById({ id });
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);  
+    }
+});
+
+export default userRouter;
+
 
 export { userRouter };

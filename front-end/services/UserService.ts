@@ -10,8 +10,23 @@ const loginUser = (user: User) => {
     });
 };
 
+
+
+
+
+const getUserById = async (userId: number) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+    }
+    const user = await response.json();
+    return user; 
+};
+
 const UserService = {
     loginUser,
+    getUserById
 };
+
 
 export default UserService;

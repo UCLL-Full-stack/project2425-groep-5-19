@@ -32,7 +32,11 @@ export type Army = {
 };
 
 
-
+export interface Complaint {
+    id?: number;        
+    message: string;
+    userId: number;
+}
 
 
 
