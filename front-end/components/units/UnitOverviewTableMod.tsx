@@ -3,10 +3,12 @@ import { Unit } from "@types";
 
 type Props = {
     units: Array<Unit>;
-    onUnitClick: (unit: Unit) => void;
+    onAddUnit: (unit: Unit) => void;
+    onRemoveUnit: (unit: Unit) => void;
+    armyUnits: number[];
 };
 
-const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
+const UnitOverviewTableMod: React.FC<Props> = ({ units, onAddUnit, onRemoveUnit, armyUnits }) => {
     return (
         <>
             {units && (
@@ -19,14 +21,14 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
                             <th className="border px-4 py-2">Defense</th>
                             <th className="border px-4 py-2">Hitpoints</th>
                             <th className="border px-4 py-2">Cost</th>
+                            <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {units.map((unit, index) => (
+                        {units.map((unit) => (
                             <tr
-                                key={index}
-                                className="hover:bg-gray-200 cursor-pointer"
-                                onClick={() => onUnitClick(unit)}
+                                key={unit.id}
+                                className="hover:bg-gray-200"
                             >
                                 <td className="border px-4 py-2">{unit.name}</td>
                                 <td className="border px-4 py-2">{unit.type}</td>
@@ -34,6 +36,23 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
                                 <td className="border px-4 py-2">{unit.defense}</td>
                                 <td className="border px-4 py-2">{unit.hitpoints}</td>
                                 <td className="border px-4 py-2">{unit.points}</td>
+                                <td className="border px-4 py-2">
+                                    {armyUnits.includes(unit.id) ? (
+                                        <button
+                                            onClick={() => onRemoveUnit(unit)}
+                                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                        >
+                                            Remove
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={() => onAddUnit(unit)}
+                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                        >
+                                            Add
+                                        </button>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -43,5 +62,4 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
     );
 };
 
-export default UnitOverviewTable;
-
+export default UnitOverviewTableMod;

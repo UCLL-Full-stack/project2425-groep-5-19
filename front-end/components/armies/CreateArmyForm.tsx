@@ -14,7 +14,15 @@ const CreateArmyForm: React.FC = () => {
         setError(null);
 
         try {
-            const response = await ArmyService.createArmy({ name, faction });
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            if (!loggedInUser) {
+                setError("No logged-in user found.");
+                return;
+            }
+
+            const { id } = JSON.parse(loggedInUser);
+
+            const response = await ArmyService.createArmy({ name, faction, userId: id });
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -24,7 +32,8 @@ const CreateArmyForm: React.FC = () => {
 
             const newArmy = await response.json();
 
-            router.push(`/units/faction/${newArmy.faction}`);
+            // Redirect to the dynamically generated page
+            router.push(`/army/${newArmy.id}`);
         } catch (err) {
             setError("An error occurred while creating the army.");
         }

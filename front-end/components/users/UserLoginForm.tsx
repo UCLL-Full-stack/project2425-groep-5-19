@@ -58,12 +58,12 @@ const UserLoginForm: React.FC = () => {
         const userData = await response.json();
 
 
-        const { token, fullname, username, role } = userData;
+        const { token, fullname, id, role } = userData;
 
 
         localStorage.setItem(
           "loggedInUser",
-          JSON.stringify({ token, fullname, username, role })
+          JSON.stringify({ token, fullname, id, role })
         );
 
 
