@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Header from "@components/header";
 import UnitOverviewTable from "@components/units/UnitOverviewTable";
+import UnitStatsForm from "@components/units/UnitStatsForm";
 import UnitService from "@services/UnitService";
 import { Unit } from "@types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -101,64 +102,20 @@ const Units: React.FC = () => {
 
                 {/* Selected Unit Form */}
                 {selectedUnit && (
-                    <section className="mt-5 w-full max-w-md">
-                        <h2 className="text-2xl font-semibold text-center">
-                            Update Stats for {selectedUnit.name}
-                        </h2>
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4">
-                            <label>
-                                Attack:
-                                <input
-                                    type="number"
-                                    name="attack"
-                                    value={formValues.attack}
-                                    onChange={handleFormChange}
-                                    className="border px-2 py-1 w-full"
-                                />
-                            </label>
-                            <label>
-                                Defense:
-                                <input
-                                    type="number"
-                                    name="defense"
-                                    value={formValues.defense}
-                                    onChange={handleFormChange}
-                                    className="border px-2 py-1 w-full"
-                                />
-                            </label>
-                            <label>
-                                Hitpoints:
-                                <input
-                                    type="number"
-                                    name="hitpoints"
-                                    value={formValues.hitpoints}
-                                    onChange={handleFormChange}
-                                    className="border px-2 py-1 w-full"
-                                />
-                            </label>
-                            <label>
-                                Points:
-                                <input
-                                    type="number"
-                                    name="points"
-                                    value={formValues.points}
-                                    onChange={handleFormChange}
-                                    className="border px-2 py-1 w-full"
-                                />
-                            </label>
-                            <button
-                                type="submit"
-                                className="bg-blue-600 text-white px-4 py-2 mt-4 rounded"
-                            >
-                                Update Stats
-                            </button>
-                        </form>
-                    </section>
+                    <UnitStatsForm
+                        unitName={selectedUnit.name}
+                        formValues={formValues}
+                        onFormChange={handleFormChange}
+                        onSubmit={handleSubmit}
+                    />
                 )}
             </main>
         </>
     );
 };
+
+
+
 
 export const getServerSideProps = async (context: { locale: any; }) => {
     const { locale } = context;

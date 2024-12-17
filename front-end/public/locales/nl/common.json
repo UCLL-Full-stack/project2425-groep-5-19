@@ -1,10 +1,10 @@
 {
-  "app.title": "Cursussen App",
-  "meta.description": "App voor het beheren van onderwijs en leren.",
+  "app.title": "Warhammer Bouwer",
+  "meta.description": "App voor make van warhammer legers.",
   "alt.logo": "Cursussen Logo",
   "home": {
     "title": "Welkom!",
-    "description": "Cursussen laat je als docent alle cursussen zien die je geeft en als student alle cursussen waarin je bent ingeschreven. Je kunt ook zien wanneer de cursussen zijn gepland en welke studenten er voor elke cursus zijn ingeschreven."
+    "description": "Warhammer stelt je in staat om aangepaste Warhammer-legers te bouwen."
   },
   "general.error": "Er is een fout opgetreden. Probeer het later opnieuw.",
   "login": {
@@ -23,8 +23,9 @@
   "header": {
     "welcome": "Welkom",
     "nav": {
+      "user":"Gebruikers",
       "home": "Startpagina",
-      "complaint": "Klacht",
+      "complaint": "Klachten",
       "unit": "Eenheden",
       "army": "Legers",
       "login": "Inloggen",

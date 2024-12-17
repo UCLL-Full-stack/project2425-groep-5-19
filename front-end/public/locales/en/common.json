@@ -1,10 +1,10 @@
 {
-  "app.title": "Courses App",
-  "meta.description": "Courses app to manage teaching and learning.",
+  "app.title": "Warhammer Builder",
+  "meta.description": "App to build warhammer armies.",
   "alt.logo": "Courses Logo",
   "home": {
     "title": "Welcome!",
-    "description": "Courses lets you see as a lecturer all the courses you are teaching and as a student all the courses you are enrolled in. You can also see when the courses are scheduled and the students enrolled in each course."
+    "description": "Warhammer lets you build custom warhammer armies."
   },
   "general.error": "An error has occurred. Please try again later.",
   "login": {
@@ -23,8 +23,9 @@
   "header": {
     "welcome": "Welcome",
     "nav": {
+      "user":"Users",
       "home": "Home",
-      "complaint": "Complaint",
+      "complaint": "Complaints",
       "unit": "Units",
       "army": "Armies",
       "login": "Login",
@@ -52,7 +53,8 @@
         "attack": "Attack",
         "defense": "Defense",
         "hitpoints": "Hitpoints",
-        "faction": "Faction","actions": "Actions",
+        "faction": "Faction",
+        "actions": "Actions",
         "modify": "Modify"
       }
     },
