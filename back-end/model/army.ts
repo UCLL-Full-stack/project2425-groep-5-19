@@ -60,7 +60,7 @@ export class Army {
         return this.units.reduce((sum, unit) => sum + unit.getHitpoints(), 0);
     }
     getMaxCost(): number {
-        return this.maxCost;
+        return this.units.reduce((sum, unit) => sum + unit.getPoints(), 0);
     }
 
     getUnits(): Unit[] {

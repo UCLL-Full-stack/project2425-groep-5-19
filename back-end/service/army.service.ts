@@ -49,6 +49,7 @@ const updateArmyStats = async (id: number): Promise<Army> => {
         attack: army.getAttack(),
         defense: army.getDefense(),
         hitpoints: army.getHitpoints(),
+        maxCost : army.getMaxCost(),
     };
 
     

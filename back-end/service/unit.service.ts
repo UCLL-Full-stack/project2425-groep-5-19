@@ -69,9 +69,25 @@ const updateUnitStats = async (
     unitId: number,
     updatedStats: { attack?: number; defense?: number; hitpoints?: number; points?: number }
 ): Promise<Unit> => {
-    const unit = await getUnitById({ id: unitId }); 
-    return await unitDB.updateUnitStats(unitId, updatedStats);
+    
+    const unit = await getUnitById({ id: unitId });
+    
+    
+    const updatedUnit = await unitDB.updateUnitStats(unitId, updatedStats);
+
+    
+    const allArmies = await armyService.getAllArmies(); 
+
+    
+    await Promise.all(
+        allArmies
+            .filter(army => army.getId() !== undefined) 
+            .map(army => armyService.updateArmyStats(army.getId()!)) 
+    );
+
+    return updatedUnit;
 };
+
 
 export default {
     getAllUnits,

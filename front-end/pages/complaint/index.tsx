@@ -24,7 +24,7 @@ const Complaints: React.FC = () => {
     };
 
     const handleRemoveComplaint = (userId: number) => {
-        // Filter out complaints with the deleted user's ID
+
         setComplaints((prev) => prev.filter((complaint) => complaint.userId !== userId));
     };
 
