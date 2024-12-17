@@ -27,11 +27,48 @@ const getAllUnits = () => {
         body: JSON.stringify(updatedStats),
     });
 };
+
+
+const getUnitsByFaction = async (faction: "Imperium" | "Chaos") => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/faction/${faction}`);
+};
+
+const addUnitToArmy = async (unitId: number, armyId: number) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/${unitId}/add-to-army/${armyId}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+  });
+
+  if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to add unit to the army.");
+  }
+
+  return response.json(); 
+};
+
+
+const removeUnitFromArmy = async (unitId: number, armyId: number) => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/${unitId}/remove-from-army/${armyId}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+  });
+};
   
   const UnitService = {
     getAllUnits,
     getUnitById,
-    updateUnitStats
+    updateUnitStats,
+
+
+    getUnitsByFaction,
+
+    addUnitToArmy,
+    removeUnitFromArmy
   };
   
   export default UnitService;

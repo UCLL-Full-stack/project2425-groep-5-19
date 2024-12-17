@@ -219,8 +219,19 @@ unitRouter.put('/:unitId/add-to-army/:armyId', async (req: Request, res: Respons
         const armyId = parseInt(req.params.armyId, 10);
         const unit = await unitService.addUnitToArmy(unitId, armyId);
         res.status(200).json(unit);
-    } catch (error) {
-        next(error);
+    } catch (error: unknown) {
+        let errorMessage = "An unexpected error occurred.";
+
+       
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+
+        
+        ;
+
+        
+        res.status(400).json({ message: errorMessage });
     }
 });
 

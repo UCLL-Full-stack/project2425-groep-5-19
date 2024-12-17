@@ -4,15 +4,13 @@ import Header from "@components/header";
 import UnitOverviewTableMod from "@components/units/UnitOverviewTableMod";
 import ArmyService from "@services/ArmyService";
 import { Army, Unit } from "@types";
-
+import UnitService from "@services/UnitService";
 const ArmyDetailPage: React.FC = () => {
     const router = useRouter();
     const { armyID } = router.query;
-
     const [army, setArmy] = useState<Army | null>(null);
     const [units, setUnits] = useState<Array<Unit>>([]);
     const [error, setError] = useState<string | null>(null);
-
     const fetchArmyDetails = async () => {
         try {
             if (typeof armyID !== "string") {
@@ -24,75 +22,64 @@ const ArmyDetailPage: React.FC = () => {
                 setError("Failed to fetch army details.");
                 return;
             }
-
             const fetchedArmy = await response.json();
             setArmy(fetchedArmy);
-
-            const unitsResponse = await ArmyService.getUnitsByFaction(fetchedArmy.faction);
+            const unitsResponse = await UnitService.getUnitsByFaction(fetchedArmy.faction);
             if (!unitsResponse.ok) {
                 setError("Failed to fetch units for the faction.");
                 return;
             }
-
             const fetchedUnits = await unitsResponse.json();
             setUnits(fetchedUnits);
         } catch (err) {
             setError("An error occurred while fetching army details.");
         }
     };
-
     useEffect(() => {
         if (armyID) {
             fetchArmyDetails();
         }
     }, [armyID]);
-
     const handleAddUnit = async (unit: Unit) => {
         if (!army || typeof armyID !== "string") return;
 
         try {
-            const response = await ArmyService.addUnitToArmy(unit.id, parseInt(armyID));
-            if (!response.ok) {
-                setError("Failed to add unit to the army.");
-                return;
-            }
 
-            // Update the army's unit list manually after successful API call
+            const addedUnit = await UnitService.addUnitToArmy(unit.id, parseInt(armyID));
+
             setArmy((prevArmy) => {
                 if (!prevArmy) return null;
                 return {
                     ...prevArmy,
-                    units: [...prevArmy.units, unit], // Add the new unit
+                    units: [...prevArmy.units, addedUnit],
                 };
             });
+
+            setError(null);
         } catch (err) {
             setError("An error occurred while adding the unit.");
         }
     };
-
     const handleRemoveUnit = async (unit: Unit) => {
         if (!army || typeof armyID !== "string") return;
-
         try {
-            const response = await ArmyService.removeUnitFromArmy(unit.id, parseInt(armyID));
+            const response = await UnitService.removeUnitFromArmy(unit.id, parseInt(armyID));
             if (!response.ok) {
                 setError("Failed to remove unit from the army.");
                 return;
             }
 
-            // Update the army's unit list manually after successful API call
             setArmy((prevArmy) => {
                 if (!prevArmy) return null;
                 return {
                     ...prevArmy,
-                    units: prevArmy.units.filter((u) => u.id !== unit.id), // Remove the unit
+                    units: prevArmy.units.filter((u) => u.id !== unit.id),
                 };
             });
         } catch (err) {
             setError("An error occurred while removing the unit.");
         }
     };
-
     return (
         <>
             <Header />
@@ -122,7 +109,8 @@ const ArmyDetailPage: React.FC = () => {
         </>
     );
 };
-
 export default ArmyDetailPage;
+
+
 
 

@@ -32,7 +32,7 @@ const CreateArmyForm: React.FC = () => {
 
             const newArmy = await response.json();
 
-            // Redirect to the dynamically generated page
+
             router.push(`/army/${newArmy.id}`);
         } catch (err) {
             setError("An error occurred while creating the army.");

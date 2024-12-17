@@ -37,7 +37,25 @@ const createUnit = async ({
 
 const addUnitToArmy = async (unitId: number, armyId: number): Promise<Unit> => {
     
-    const unit = await getUnitById({ id: unitId });
+    const unit = await getUnitById({ id: unitId }); 
+    if (!unit) {
+        throw new Error("Unit not found.");
+    }
+
+    
+    const army = await armyService.getArmyById({id: armyId}); 
+    if (!army) {
+        throw new Error("Army not found.");
+    }
+
+   
+    const currentTotalCost = army.getUnits().reduce((total: number, armyUnit: Unit) => total + armyUnit.getPoints(), 0);
+
+    
+    const newTotalCost = currentTotalCost + unit.getPoints();
+    if (newTotalCost > 1000) {
+        throw new Error("Adding this unit would exceed the army's total cost limit of 1000.");
+    }
 
     
     const addedUnit = await unitDB.addUnitToArmy(unitId, armyId);
@@ -45,9 +63,10 @@ const addUnitToArmy = async (unitId: number, armyId: number): Promise<Unit> => {
     
     await armyService.updateArmyStats(armyId);
 
-    
     return addedUnit;
 };
+
+
 
 
 

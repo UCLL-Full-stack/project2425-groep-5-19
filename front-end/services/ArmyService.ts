@@ -26,28 +26,7 @@ const getAllArmies = () => {
     });
 };
 
-const getUnitsByFaction = async (faction: "Imperium" | "Chaos") => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/faction/${faction}`);
-};
 
-const addUnitToArmy = async (unitId: number, armyId: number) => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/${unitId}/add-to-army/${armyId}`, {
-      method: "PUT",
-      headers: {
-          "Content-Type": "application/json",
-      },
-  });
-};
-
-
-const removeUnitFromArmy = async (unitId: number, armyId: number) => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/units/${unitId}/remove-from-army/${armyId}`, {
-      method: "PUT",
-      headers: {
-          "Content-Type": "application/json",
-      },
-  });
-};
 
 
   
@@ -55,10 +34,7 @@ const removeUnitFromArmy = async (unitId: number, armyId: number) => {
     getAllArmies,
     getArmyById,
     createArmy,
-    getUnitsByFaction,
-
-    addUnitToArmy,
-    removeUnitFromArmy
+    
   };
   
   export default ArmyService;
