@@ -17,6 +17,7 @@ type AuthenticationResponse = {
     username: string;
     fullname: string;
     role: string;
+    id: number;
 };
 
 type Unit = {

@@ -3,7 +3,7 @@ import { Unit } from "@types";
 
 type Props = {
     units: Array<Unit>;
-    onUnitClick: (unit: Unit) => void; // Callback for unit click
+    onUnitClick: (unit: Unit) => void;
 };
 
 const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {

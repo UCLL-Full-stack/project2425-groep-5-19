@@ -1,4 +1,5 @@
 import { Unit } from '../model/unit';
+import { Faction } from '../types';
 import database from './prisma/database';
 
 const getAllUnits = async (): Promise<Unit[]> => {
@@ -74,6 +75,25 @@ const removeUnitFromArmy = async (unitId: number, armyId: number): Promise<Unit>
     }
 };
 
+const getUnitsByFaction = async (faction: Faction): Promise<Unit[]> => {
+    try {
+        
+        const unitsPrisma = await database.unit.findMany({
+            where: {
+                faction: faction, 
+            },
+        });
+
+        
+        return unitsPrisma.map((unitPrisma) => Unit.from(unitPrisma));
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
+
+
 
 
 
@@ -135,4 +155,5 @@ export default {
     getAllUnits,
     addUnitToArmy,
     removeUnitFromArmy,
+    getUnitsByFaction
 };

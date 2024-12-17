@@ -84,7 +84,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import unitService from '../service/unit.service';
-import { UnitInput } from '../types';
+import { Faction, UnitInput } from '../types';
 
 const unitRouter = express.Router();
 
@@ -315,6 +315,57 @@ unitRouter.put('/:unitId/update-stats', async (req: Request, res: Response, next
         next(error);
     }
 });
+
+
+/**
+ * @swagger
+ * /units/faction/{faction}:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get all units by faction
+ *     parameters:
+ *       - in: path
+ *         name: faction
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [Imperium, Chaos]
+ *         description: The faction of the units.
+ *     responses:
+ *       200:
+ *         description: A list of units belonging to the specified faction.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Unit'
+ *       404:
+ *         $ref: '#/components/responses/UnitNotFound'
+ */
+unitRouter.get('/faction/:faction', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { faction } = req.params;
+
+        
+        if (faction !== 'Imperium' && faction !== 'Chaos') {
+            return res.status(400).json({ message: 'Invalid faction specified.' });
+        }
+
+        
+        const units = await unitService.getUnitsByFaction(faction as Faction);
+        
+        if (!units.length) {
+            return res.status(404).json({ message: 'No units found for this faction.' });
+        }
+
+        res.status(200).json(units);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export { unitRouter };
 

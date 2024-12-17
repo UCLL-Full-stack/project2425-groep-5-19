@@ -15,10 +15,21 @@ const getAllArmies = () => {
       },
     });
   };
+
+  const createArmy = async (army: { name: string; faction: "Imperium" | "Chaos" }) => {
+    return await fetch(process.env.NEXT_PUBLIC_API_URL + "/armies/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(army),
+    });
+};
   
   const ArmyService = {
     getAllArmies,
     getArmyById,
+    createArmy
   };
   
   export default ArmyService;

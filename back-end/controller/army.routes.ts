@@ -52,11 +52,6 @@
  *           type: integer
  *           description: The ID of the user creating the army.
  *           example: 1
- *         maxCost:
- *           type: number
- *           format: float
- *           description: The maximum cost of the army.
- *           example: 500.0
  *         units:
  *           type: array
  *           items:

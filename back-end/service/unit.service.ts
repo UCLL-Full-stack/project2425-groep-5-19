@@ -1,5 +1,5 @@
 import unitDB from '../repository/unit.db'; 
-import { UnitInput } from '../types'; 
+import { Faction, UnitInput } from '../types'; 
 import { Unit } from '../model/unit'; 
 import armyService from '../service/army.service';
 
@@ -7,7 +7,9 @@ import armyService from '../service/army.service';
 const getAllUnits = async (): Promise<Unit[]> => {
     return await unitDB.getAllUnits();
 };
-
+const getUnitsByFaction = async (faction: Faction): Promise<Unit[]> => {
+    return await unitDB.getUnitsByFaction(faction);
+};
 
 const getUnitById = async ({ id }: { id: number }): Promise<Unit> => {
     const unit = await unitDB.getAllUnits().then(units => units.find(u => u.getId() === id));
@@ -96,4 +98,5 @@ export default {
     addUnitToArmy,
     removeUnitFromArmy,
     updateUnitStats,
+    getUnitsByFaction
 };

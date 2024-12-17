@@ -22,11 +22,17 @@ const authenticate = async ({ username, password }: UserInput): Promise<Authenti
     if (!isValidPassword) {
         throw new Error('Incorrect password.');
     }
+
+    const userId = user.getId();
+    if (userId === undefined) {
+        throw new Error('User ID is missing.');
+    }
     return {
         token: generateJwtToken({ username, role: user.getRole() }),
         username: username,
         fullname: `${user.getFirstName()} ${user.getLastName()}`,
         role: user.getRole(),
+        id: userId,
     };
 };
 
