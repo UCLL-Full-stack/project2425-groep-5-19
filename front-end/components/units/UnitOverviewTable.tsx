@@ -1,5 +1,6 @@
 import React from "react";
 import { Unit } from "@types";
+import { useTranslation } from "next-i18next";
 
 type Props = {
     units: Array<Unit>;
@@ -7,18 +8,20 @@ type Props = {
 };
 
 const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
+    const { t } = useTranslation("common");
+
     return (
         <>
             {units && (
                 <table className="text-left border-collapse w-full mt-5">
                     <thead>
                         <tr>
-                            <th className="border px-4 py-2">Unit Name</th>
-                            <th className="border px-4 py-2">Type</th>
-                            <th className="border px-4 py-2">Attack</th>
-                            <th className="border px-4 py-2">Defense</th>
-                            <th className="border px-4 py-2">Hitpoints</th>
-                            <th className="border px-4 py-2">Cost</th>
+                            <th className="border px-4 py-2">{t("unit.table.name")}</th>
+                            <th className="border px-4 py-2">{t("unit.table.type")}</th>
+                            <th className="border px-4 py-2">{t("unit.table.attack")}</th>
+                            <th className="border px-4 py-2">{t("unit.table.defense")}</th>
+                            <th className="border px-4 py-2">{t("unit.table.hitpoints")}</th>
+                            <th className="border px-4 py-2">{t("unit.table.cost")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,4 +47,5 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
 };
 
 export default UnitOverviewTable;
+
 

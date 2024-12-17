@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { User } from "@types";
 import ComplaintService from "@services/ComplaintService";
+import { useTranslation } from "react-i18next"; // Import translation hook
 
 type Props = {
     users: Array<User>;
 };
 
 const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
+    const { t } = useTranslation(); // Initialize translation function
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [message, setMessage] = useState("");
@@ -17,18 +19,21 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
     };
 
     const handleComplaintSubmit = async () => {
-        if (!selectedUser) return;
+        if (!selectedUser || selectedUser.id === undefined) {
+            alert(t("complaint.errors.invalidUserId")); // Use translation
+            return;
+        }
 
         try {
             await ComplaintService.createComplaint({
                 message,
                 userId: selectedUser.id,
             });
-            alert("Complaint submitted successfully!");
+            alert(t("complaint.success")); // Use translation
             setIsFormOpen(false);
             setMessage("");
         } catch (error) {
-            alert("Failed to submit complaint");
+            alert(t("complaint.errors.submitFailed")); // Use translation
             console.error(error);
         }
     };
@@ -38,9 +43,9 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
             <table className="text-left border-collapse w-full mt-5">
                 <thead>
                     <tr>
-                        <th className="border px-4 py-2">User Name</th>
-                        <th className="border px-4 py-2">Email</th>
-                        <th className="border px-4 py-2">Actions</th>
+                        <th className="border px-4 py-2">{t("userOverview.table.name")}</th> {/* Translated */}
+                        <th className="border px-4 py-2">{t("userOverview.table.email")}</th> {/* Translated */}
+                        <th className="border px-4 py-2">{t("userOverview.table.actions")}</th> {/* Translated */}
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +58,7 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
                                     className="bg-blue-500 text-white px-2 py-1 rounded"
                                     onClick={() => openComplaintForm(user)}
                                 >
-                                    Make Complaint
+                                    {t("userOverview.actions.makeComplaint")} {/* Translated */}
                                 </button>
                             </td>
                         </tr>
@@ -65,13 +70,14 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
             {isFormOpen && selectedUser && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
                     <div className="bg-white p-5 rounded shadow-lg">
-                        <h2 className="text-lg font-bold mb-3">Submit Complaint</h2>
+                        <h2 className="text-lg font-bold mb-3">{t("complaint.form.title")}</h2> {/* Translated */}
                         <p className="mb-2">
-                            Complaint for: <strong>{`${selectedUser.firstName} ${selectedUser.lastName}`}</strong>
+                            {t("complaint.form.for")}{" "}
+                            <strong>{`${selectedUser.firstName} ${selectedUser.lastName}`}</strong>
                         </p>
                         <textarea
                             className="w-full border rounded p-2 mb-3"
-                            placeholder="Enter your complaint"
+                            placeholder={t("complaint.form.placeholder")} // Translated
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />
@@ -80,13 +86,13 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
                                 className="bg-gray-500 text-white px-3 py-1 rounded"
                                 onClick={() => setIsFormOpen(false)}
                             >
-                                Cancel
+                                {t("general.cancel")} {/* Translated */}
                             </button>
                             <button
                                 className="bg-green-500 text-white px-3 py-1 rounded"
                                 onClick={handleComplaintSubmit}
                             >
-                                Submit
+                                {t("general.submit")} {/* Translated */}
                             </button>
                         </div>
                     </div>
@@ -97,4 +103,5 @@ const UserOverviewTable: React.FC<Props> = ({ users }: Props) => {
 };
 
 export default UserOverviewTable;
+
 

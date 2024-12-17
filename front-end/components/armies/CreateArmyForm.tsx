@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ArmyService from "@services/ArmyService";
+import { useTranslation } from "next-i18next";
 
 const CreateArmyForm: React.FC = () => {
     const [name, setName] = useState("");
@@ -8,6 +9,7 @@ const CreateArmyForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const router = useRouter();
+    const { t } = useTranslation();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -16,7 +18,7 @@ const CreateArmyForm: React.FC = () => {
         try {
             const loggedInUser = localStorage.getItem("loggedInUser");
             if (!loggedInUser) {
-                setError("No logged-in user found.");
+                setError(t("createArmy.errors.noUser"));
                 return;
             }
 
@@ -26,59 +28,57 @@ const CreateArmyForm: React.FC = () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(errorData.message || "Failed to create army.");
+                setError(errorData.message || t("createArmy.errors.generic"));
                 return;
             }
 
             const newArmy = await response.json();
-
-
             router.push(`/army/${newArmy.id}`);
         } catch (err) {
-            setError("An error occurred while creating the army.");
+            setError(t("createArmy.errors.server"));
         }
     };
 
     return (
-        <div className="p-6 max-w-lg mx-auto">
-            <h1 className="text-3xl font-bold mb-4">Create Army</h1>
-            {error && <div className="text-red-600 mb-4">{error}</div>}
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-lg font-semibold mb-2">
-                        Army Name
-                    </label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="border rounded-lg p-2 w-full"
-                        placeholder="Enter army name"
-                    />
-                </div>
-                <div>
-                    <label className="block text-lg font-semibold mb-2">
-                        Faction
-                    </label>
-                    <select
-                        value={faction}
-                        onChange={(e) => setFaction(e.target.value as "Imperium" | "Chaos")}
-                        className="border rounded-lg p-2 w-full"
-                    >
-                        <option value="Imperium">Imperium</option>
-                        <option value="Chaos">Chaos</option>
-                    </select>
-                </div>
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10">
+            <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700">
+                    {t("createArmy.form.name")}
+                </label>
+                <input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full p-2 border rounded"
+                    required
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="faction" className="block text-gray-700">
+                    {t("createArmy.form.faction")}
+                </label>
+                <select
+                    id="faction"
+                    value={faction}
+                    onChange={(e) => setFaction(e.target.value as "Imperium" | "Chaos")}
+                    className="w-full p-2 border rounded"
                 >
-                    Create Army
-                </button>
-            </form>
-        </div>
+                    <option value="Imperium">{t("createArmy.form.factions.imperium")}</option>
+                    <option value="Chaos">{t("createArmy.form.factions.chaos")}</option>
+                </select>
+            </div>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+            <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+                {t("createArmy.form.submit")}
+            </button>
+        </form>
     );
 };
 
 export default CreateArmyForm;
+
+

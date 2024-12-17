@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Complaint, User } from "@types";
 import UserService from "@services/UserService";
+import { useTranslation } from "next-i18next";
 
 type Props = {
     complaints: Array<Complaint>;
@@ -10,6 +11,7 @@ type Props = {
 
 const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, removeComplaint }: Props) => {
     const [users, setUsers] = useState<{ [userId: number]: User }>({});
+    const { t } = useTranslation();
 
     const getUserName = async (userId: number) => {
         if (users[userId]) return;
@@ -18,7 +20,7 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
             const user = await UserService.getUserById(userId);
             setUsers((prev) => ({ ...prev, [userId]: user }));
         } catch (error) {
-            console.error("Error fetching user data:", error);
+            console.error(t("complaints.errors.fetchUser"), error);
         }
     };
 
@@ -27,7 +29,7 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
             await UserService.deleteUser(userId);
             removeComplaint(userId); // Notify parent to refresh complaints
         } catch (error) {
-            console.error("Error deleting user:", error);
+            console.error(t("complaints.errors.deleteUser"), error);
         }
     };
 
@@ -41,9 +43,9 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
         <table className="text-left w-full">
             <thead>
                 <tr>
-                    <th className="border px-4 py-2">Message</th>
-                    <th className="border px-4 py-2">User Name</th>
-                    <th className="border px-4 py-2">Actions</th>
+                    <th className="border px-4 py-2">{t("complaints.table.message")}</th>
+                    <th className="border px-4 py-2">{t("complaints.table.userName")}</th>
+                    <th className="border px-4 py-2">{t("complaints.table.actions")}</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +59,7 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
                         <td className="border px-4 py-2">
                             {users[complaint.userId]
                                 ? `${users[complaint.userId].firstName} ${users[complaint.userId].lastName}`
-                                : "Loading..."}
+                                : t("complaints.table.loading")}
                         </td>
                         <td className="border px-4 py-2">
                             <button
@@ -67,7 +69,7 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
                                 }}
                                 className="text-red-500 ml-2"
                             >
-                                Delete
+                                {t("complaints.table.delete")}
                             </button>
                         </td>
                     </tr>
@@ -78,6 +80,7 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
 };
 
 export default ComplaintOverviewTable;
+
 
 
 

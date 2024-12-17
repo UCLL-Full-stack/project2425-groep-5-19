@@ -1,6 +1,7 @@
 import React from "react";
 import { Army } from "@types";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 type Props = {
     armies: Array<Army>;
@@ -12,6 +13,7 @@ const ArmyOverviewTable: React.FC<Props> = ({
     selectArmy,
 }: Props) => {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const handleModifyClick = (armyID: number) => {
         router.push(`/army/${armyID}`);
@@ -23,13 +25,13 @@ const ArmyOverviewTable: React.FC<Props> = ({
                 <table className="text-left border-collapse w-full mt-5">
                     <thead>
                         <tr>
-                            <th className="border px-4 py-2">Army Name</th>
-                            <th className="border px-4 py-2">User ID</th>
-                            <th className="border px-4 py-2">Attack</th>
-                            <th className="border px-4 py-2">Defense</th>
-                            <th className="border px-4 py-2">Hitpoints</th>
-                            <th className="border px-4 py-2">Faction</th>
-                            <th className="border px-4 py-2">Actions</th> {/* New column */}
+                            <th className="border px-4 py-2">{t("army.table.name")}</th>
+                            <th className="border px-4 py-2">{t("army.table.userId")}</th>
+                            <th className="border px-4 py-2">{t("army.table.attack")}</th>
+                            <th className="border px-4 py-2">{t("army.table.defense")}</th>
+                            <th className="border px-4 py-2">{t("army.table.hitpoints")}</th>
+                            <th className="border px-4 py-2">{t("army.table.faction")}</th>
+                            <th className="border px-4 py-2">{t("army.table.actions")}</th> {/* New column */}
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +55,7 @@ const ArmyOverviewTable: React.FC<Props> = ({
                                         }}
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
                                     >
-                                        Modify
+                                        {t("army.table.modify")}
                                     </button>
                                 </td>
                             </tr>
@@ -66,4 +68,5 @@ const ArmyOverviewTable: React.FC<Props> = ({
 };
 
 export default ArmyOverviewTable;
+
 

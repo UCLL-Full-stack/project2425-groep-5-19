@@ -1,37 +1,92 @@
 {
-    "app.title": "Cursussen App",
-    "meta.description": "Cursussen app om lesgeven en leren te beheren.",
+  "app.title": "Cursussen App",
+  "meta.description": "App voor het beheren van onderwijs en leren.",
   "alt.logo": "Cursussen Logo",
   "home": {
     "title": "Welkom!",
-    "description": "Cursussen laten je zien als docent alle cursussen die je geeft en als student alle cursussen waarvoor je bent ingeschreven. Je kunt ook zien wanneer de cursussen zijn gepland en de studenten die zijn ingeschreven voor elke cursus."
+    "description": "Cursussen laat je als docent alle cursussen zien die je geeft en als student alle cursussen waarin je bent ingeschreven. Je kunt ook zien wanneer de cursussen zijn gepland en welke studenten er voor elke cursus zijn ingeschreven."
   },
-    "general.error": "Er is een fout opgetreden. Probeer het later opnieuw.",
-    "login": {
-      "title": "Inloggen",
-      "button": "Inloggen",
-      "success": "Inloggen succesvol. Doorverwijzen naar de startpagina...",
-      "validate": {
-        "name": "Naam is verplicht",
-        "password": "Wachtwoord is verplicht"
-      },
-      "label": {
-        "username": "Gebruikersnaam:",
-        "password": "Wachtwoord:"
-      }
+  "general.error": "Er is een fout opgetreden. Probeer het later opnieuw.",
+  "login": {
+    "title": "Inloggen",
+    "button": "Inloggen",
+    "success": "Succesvol ingelogd. Doorverwijzen naar de startpagina...",
+    "validate": {
+      "name": "Naam is verplicht",
+      "password": "Wachtwoord is verplicht"
     },
-    "header": {
-      "welcome": "Welkom",
-      "nav": {
-        "home": "Startpagina",
-        "complaint": "Klacht",
-        "unit": "Eenheden",
-        "army": "Legers",
-        "login": "Inloggen",
-        "logout": "Uitloggen"
-      }
+    "label": {
+      "username": "Gebruikersnaam:",
+      "password": "Wachtwoord:"
+    }
+  },
+  "header": {
+    "welcome": "Welkom",
+    "nav": {
+      "home": "Startpagina",
+      "complaint": "Klacht",
+      "unit": "Eenheden",
+      "army": "Legers",
+      "login": "Inloggen",
+      "logout": "Uitloggen"
+    }
+  },
+  "unit": {
+    "table": {
+      "name": "Eenheidsnaam",
+      "type": "Type",
+      "attack": "Aanval",
+      "defense": "Verdediging",
+      "hitpoints": "Levenspunten",
+      "cost": "Kosten",
+      "actions": "Acties",
+      "add": "Toevoegen",
+      "remove": "Verwijderen"
+    }
+  },
+  "army": {
+    "table": {
+      "name": "Legernaam",
+      "userId": "Gebruikers-ID",
+      "attack": "Aanval",
+      "defense": "Verdediging",
+      "hitpoints": "Levenspunten",
+      "faction": "Factie",
+      "actions": "Acties",
+      "modify": "Wijzigen"
+    }
+  },
+  "createArmy": {
+    "form": {
+      "name": "Legernaam",
+      "faction": "Factie",
+      "factions": {
+        "imperium": "Imperium",
+        "chaos": "Chaos"
+      },
+      "submit": "Leger Aanmaken"
+    },
+    "errors": {
+      "noUser": "Geen ingelogde gebruiker gevonden.",
+      "generic": "Leger aanmaken mislukt.",
+      "server": "Er is een fout opgetreden bij het aanmaken van het leger."
+    }
+  },
+  "complaints": {
+    "table": {
+      "message": "Bericht",
+      "userName": "Gebruikersnaam",
+      "actions": "Acties",
+      "delete": "Verwijderen",
+      "loading": "Laden..."
+    },
+    "errors": {
+      "fetchUser": "Fout bij het ophalen van gebruikersgegevens.",
+      "deleteUser": "Fout bij het verwijderen van de gebruiker."
     }
   }
-  
+}
+
+
     
    
