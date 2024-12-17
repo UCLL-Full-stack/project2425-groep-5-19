@@ -54,20 +54,20 @@ const ArmyDetailPage: React.FC = () => {
                 };
             });
 
-            setError(null); // Clear any previous errors
+            setError(null);
         } catch (err: any) {
-            // Check if the error has a response and parse the message
+
             if (err.response) {
                 try {
-                    const errorData = await err.response.json(); // Parse the JSON response
+                    const errorData = await err.response.json();
                     setError(errorData.message || "An error occurred while adding the unit.");
                 } catch (jsonErr) {
                     setError("Failed to parse error response.");
                 }
             } else if (err instanceof Error) {
-                setError(err.message); // Use the default error message
+                setError(err.message);
             } else {
-                setError("An unexpected error occurred."); // Fallback for unknown error types
+                setError("An unexpected error occurred.");
             }
         }
     };

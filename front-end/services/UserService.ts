@@ -1,6 +1,7 @@
 import { User } from "@types";
 
 const loginUser = (user: User) => {
+    console.log(user)
     return fetch(process.env.NEXT_PUBLIC_API_URL + "/users/login", {
         method: "POST",
         headers: {

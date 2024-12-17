@@ -7,7 +7,12 @@ import { User } from '../model/user';
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
 const getUserByUsername = async ({ username }: { username: string }): Promise<User> => {
+    // console.log( "verdome")
+    // console.log( username)
+    // console.log( "verdome2")
+
     const user = await userDB.getUserByUsername({ username });
+    // console.log(user)
     if (!user) {
         throw new Error(`User with username: ${username} does not exist.`);
     }
@@ -15,11 +20,13 @@ const getUserByUsername = async ({ username }: { username: string }): Promise<Us
 };
 
 const authenticate = async ({ username, password }: UserInput): Promise<AuthenticationResponse> => {
+    console.log({ username, password })
     const user = await getUserByUsername({ username });
 
     const isValidPassword = await bcrypt.compare(password, user.getPassword());
 
     if (!isValidPassword) {
+        
         throw new Error('Incorrect password.');
     }
 
