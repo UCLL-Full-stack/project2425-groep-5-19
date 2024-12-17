@@ -52,8 +52,17 @@ const addUnitToArmy = async (unitId: number, armyId: number): Promise<Unit> => {
 const removeUnitFromArmy = async (unitId: number, armyId: number): Promise<Unit> => {
     
     const unit = await getUnitById({ id: unitId });
-    return await unitDB.removeUnitFromArmy(unitId, armyId);
+
+    
+    const removedUnit = await unitDB.removeUnitFromArmy(unitId, armyId);
+
+    
+    await armyService.updateArmyStats(armyId);
+
+    
+    return removedUnit;
 };
+
 
 
 const updateUnitStats = async (
