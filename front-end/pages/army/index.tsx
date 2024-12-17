@@ -6,9 +6,11 @@ import ArmyOverviewTable from "@components/armies/ArmyOverviewTable";
 import UnitOverviewTable from "@components/units/UnitOverviewTable";
 import { Army, Unit } from "@types";
 
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Armies: React.FC = () => {
+    const { t } = useTranslation("common"); // Hook for translations
     const [armies, setArmies] = useState<Array<Army>>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
@@ -18,7 +20,7 @@ const Armies: React.FC = () => {
         const response = await ArmyService.getAllArmies();
 
         if (!response.ok) {
-            setError(response.statusText);
+            setError(t("armies.errorFetching"));
         } else {
             const armies = await response.json();
             setArmies(armies);
@@ -26,8 +28,7 @@ const Armies: React.FC = () => {
     };
 
     const handleUnitClick = (unit: Unit) => {
-
-        console.log("Unit clicked:", unit);
+        console.log(t("armies.unitClicked"), unit);
     };
 
     useEffect(() => {
@@ -37,25 +38,25 @@ const Armies: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Armies</title>
+                <title>{t("armies.title")}</title>
             </Head>
             <Header />
             <main className="p-6 min-h-screen flex flex-col items-center">
-                <h1 className="text-3xl font-bold mb-4">Armies</h1>
+                <h1 className="text-3xl font-bold mb-4">{t("armies.heading")}</h1>
                 <section>
                     {/* Error Handling */}
                     {error && <div className="text-red-800">{error}</div>}
 
                     {/* Army Overview Table */}
-                    {armies.length > 0 && (
+                    {armies.length > 0 ? (
                         <ArmyOverviewTable
                             armies={armies}
                             selectArmy={setSelectedArmy}
                         />
-                    )}
-
-                    {armies.length === 0 && !error && (
-                        <div className="text-gray-600">No armies available.</div>
+                    ) : (
+                        !error && (
+                            <div className="text-gray-600">{t("armies.noArmies")}</div>
+                        )
                     )}
                 </section>
 
@@ -63,7 +64,7 @@ const Armies: React.FC = () => {
                 {selectedArmy && (
                     <section className="mt-5">
                         <h2 className="text-2xl font-semibold text-center">
-                            Units in {selectedArmy.name}
+                            {t("armies.unitsInArmy", { armyName: selectedArmy.name })}
                         </h2>
 
                         {selectedArmy.units && selectedArmy.units.length > 0 ? (
@@ -73,7 +74,7 @@ const Armies: React.FC = () => {
                             />
                         ) : (
                             <div className="text-gray-600">
-                                No units assigned to this army.
+                                {t("armies.noUnits")}
                             </div>
                         )}
                     </section>
@@ -83,15 +84,16 @@ const Armies: React.FC = () => {
     );
 };
 
-export const getServerSideProps = async (context: { locale: any; }) => {
+export const getServerSideProps = async (context: { locale: any }) => {
     const { locale } = context;
     return {
         props: {
             ...(await serverSideTranslations(locale ?? "en", ["common"])),
-        }
-    }
-}
+        },
+    };
+};
 
 export default Armies;
+
 
 

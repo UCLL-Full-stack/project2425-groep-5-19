@@ -17,9 +17,7 @@ type Props = {
 const UnitStatsForm: React.FC<Props> = ({ unitName, formValues, onFormChange, onSubmit }) => {
     return (
         <section className="mt-5 w-full max-w-md">
-            <h2 className="text-2xl font-semibold text-center">
-                Update Stats for {unitName}
-            </h2>
+            <h2 className="text-2xl font-semibold text-center">{unitName}</h2>
             <form onSubmit={onSubmit} className="flex flex-col gap-4 mt-4">
                 <label>
                     Attack:
@@ -71,5 +69,8 @@ const UnitStatsForm: React.FC<Props> = ({ unitName, formValues, onFormChange, on
         </section>
     );
 };
+
+
+
 
 export default UnitStatsForm;

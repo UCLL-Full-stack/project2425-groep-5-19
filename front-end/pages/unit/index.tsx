@@ -6,8 +6,11 @@ import UnitStatsForm from "@components/units/UnitStatsForm";
 import UnitService from "@services/UnitService";
 import { Unit } from "@types";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Units: React.FC = () => {
+    const { t } = useTranslation("common");
+
     const [units, setUnits] = useState<Array<Unit>>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
@@ -62,12 +65,12 @@ const Units: React.FC = () => {
                         unit.id === updatedUnit.id ? updatedUnit : unit
                     )
                 );
-                setSelectedUnit(null); // Close the form
+                setSelectedUnit(null);
             } else {
-                setError("Failed to update unit stats.");
+                setError(t("failedToUpdateStats"));
             }
         } catch (error) {
-            setError("An error occurred while updating unit stats.");
+            setError(t("errorOccurred"));
         }
     };
 
@@ -78,11 +81,11 @@ const Units: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Units</title>
+                <title>{t("unitsTitle")}</title>
             </Head>
             <Header />
             <main className="p-6 min-h-screen flex flex-col items-center">
-                <h1 className="text-3xl font-bold mb-4">Units</h1>
+                <h1 className="text-3xl font-bold mb-4">{t("unitsTitle")}</h1>
                 <section>
                     {/* Error Handling */}
                     {error && <div className="text-red-800">{error}</div>}
@@ -96,14 +99,14 @@ const Units: React.FC = () => {
                     )}
 
                     {units.length === 0 && !error && (
-                        <div className="text-gray-600">No units available.</div>
+                        <div className="text-gray-600">{t("noUnitsAvailable")}</div>
                     )}
                 </section>
 
                 {/* Selected Unit Form */}
                 {selectedUnit && (
                     <UnitStatsForm
-                        unitName={selectedUnit.name}
+                        unitName={t("updateStatsFor", { unitName: selectedUnit.name })}
                         formValues={formValues}
                         onFormChange={handleFormChange}
                         onSubmit={handleSubmit}
@@ -114,17 +117,15 @@ const Units: React.FC = () => {
     );
 };
 
-
-
-
-export const getServerSideProps = async (context: { locale: any; }) => {
+export const getServerSideProps = async (context: { locale: any }) => {
     const { locale } = context;
     return {
         props: {
             ...(await serverSideTranslations(locale ?? "en", ["common"])),
-        }
-    }
-}
+        },
+    };
+};
 
 export default Units;
+
 

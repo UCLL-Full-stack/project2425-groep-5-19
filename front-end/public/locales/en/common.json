@@ -76,6 +76,7 @@
   },
   "complaints": {
     "table": {
+      "title": "Complaints",
       "message": "Message",
       "userName": "User Name",
       "actions": "Actions",
@@ -109,10 +110,52 @@
       "submitFailed": "Failed to submit complaint."
     }
   },
+  "users": {
+    "title": "Users",
+    "heading": "User Management",
+    "errorFetching": "An error occurred while fetching users.",
+    "noUsers": "No users available."
+  },
   "general": {
     "cancel": "Cancel",
     "submit": "Submit"
+  },"armies": {
+    "title": "Armies",
+    "heading": "Manage Your Armies",
+    "errorFetching": "An error occurred while fetching armies.",
+    "noArmies": "No armies available.",
+    "unitsInArmy": "Units in {{armyName}}",
+    "noUnits": "No units assigned to this army.",
+    "unitClicked": "Unit clicked:"
+  },
+  
+    "unitsTitle": "Units",
+    "updateStatsFor": "Update Stats for unit",
+    "attack": "Attack",
+    "defense": "Defense",
+    "hitpoints": "Hitpoints",
+    "points": "Points",
+    "updateStats": "Update Stats",
+    "noUnitsAvailable": "No units available.",
+    "failedToUpdateStats": "Failed to update unit stats.",
+    "errorOccurred": "An error occurred while updating unit stats.",
+    "armyDetail": {
+    "pageTitle": "Army Details",
+    "faction": "Faction",
+    "units": "Units",
+    "invalidArmyID": "Invalid army ID.",
+    "failedToFetchArmy": "Failed to fetch army details.",
+    "failedToFetchUnits": "Failed to fetch units for the faction.",
+    "errorFetchingArmy": "An error occurred while fetching army details.",
+    "errorAddingUnit": "An error occurred while adding the unit.",
+    "failedToParseError": "Failed to parse error response.",
+    "unexpectedError": "An unexpected error occurred.",
+    "failedToRemoveUnit": "Failed to remove unit from the army.",
+    "errorRemovingUnit": "An error occurred while removing the unit.",
+    "noUnits": "No units available for this faction."
   }
+
+  
   
   
 }

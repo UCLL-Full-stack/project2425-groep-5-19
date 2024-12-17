@@ -1,6 +1,6 @@
 {
   "app.title": "Warhammer Bouwer",
-  "meta.description": "App voor make van warhammer legers.",
+  "meta.description": "App om Warhammer-legers te bouwen.",
   "alt.logo": "Cursussen Logo",
   "home": {
     "title": "Welkom!",
@@ -23,7 +23,7 @@
   "header": {
     "welcome": "Welkom",
     "nav": {
-      "user":"Gebruikers",
+      "user": "Gebruikers",
       "home": "Startpagina",
       "complaint": "Klachten",
       "unit": "Eenheden",
@@ -75,6 +75,7 @@
   },
   "complaints": {
     "table": {
+      "title": "Klachten",
       "message": "Bericht",
       "userName": "Gebruikersnaam",
       "actions": "Acties",
@@ -85,8 +86,75 @@
       "fetchUser": "Fout bij het ophalen van gebruikersgegevens.",
       "deleteUser": "Fout bij het verwijderen van de gebruiker."
     }
+  },
+  "userOverview": {
+    "table": {
+      "name": "Gebruikersnaam",
+      "email": "E-mail",
+      "actions": "Acties"
+    },
+    "actions": {
+      "makeComplaint": "Klacht indienen"
+    }
+  },
+  "complaint": {
+    "form": {
+      "title": "Klacht Indienen",
+      "for": "Klacht voor:",
+      "placeholder": "Voer je klacht in"
+    },
+    "success": "Klacht succesvol ingediend!",
+    "errors": {
+      "invalidUserId": "Gebruikers-ID is ongeldig.",
+      "submitFailed": "Klacht indienen mislukt."
+    }
+  },
+  "users": {
+    "title": "Gebruikers",
+    "heading": "Gebruikersbeheer",
+    "errorFetching": "Er is een fout opgetreden bij het ophalen van gebruikers.",
+    "noUsers": "Geen gebruikers beschikbaar."
+  },
+  "general": {
+    "cancel": "Annuleren",
+    "submit": "Verzenden"
+  },
+  "armies": {
+    "title": "Legers",
+    "heading": "Beheer je Legers",
+    "errorFetching": "Er is een fout opgetreden bij het ophalen van legers.",
+    "noArmies": "Geen legers beschikbaar.",
+    "unitsInArmy": "Eenheden in {{armyName}}",
+    "noUnits": "Geen eenheden toegewezen aan dit leger.",
+    "unitClicked": "Eenheid aangeklikt:"
+  },
+  "unitsTitle": "Eenheden",
+  "updateStatsFor": "Statistieken bijwerken voor eenheid",
+  "attack": "Aanval",
+  "defense": "Verdediging",
+  "hitpoints": "Levenspunten",
+  "points": "Punten",
+  "updateStats": "Statistieken bijwerken",
+  "noUnitsAvailable": "Geen eenheden beschikbaar.",
+  "failedToUpdateStats": "Het bijwerken van eenheidstatistieken is mislukt.",
+  "errorOccurred": "Er is een fout opgetreden bij het bijwerken van eenheidstatistieken.",
+  "armyDetail": {
+    "pageTitle": "Legerdetails",
+    "faction": "Factie",
+    "units": "Eenheden",
+    "invalidArmyID": "Ongeldige leger-ID.",
+    "failedToFetchArmy": "Kon legergegevens niet ophalen.",
+    "failedToFetchUnits": "Kon geen eenheden ophalen voor de factie.",
+    "errorFetchingArmy": "Er is een fout opgetreden bij het ophalen van de legergegevens.",
+    "errorAddingUnit": "Er is een fout opgetreden bij het toevoegen van de eenheid.",
+    "failedToParseError": "Fout bij het verwerken van de foutmelding.",
+    "unexpectedError": "Er is een onverwachte fout opgetreden.",
+    "failedToRemoveUnit": "Kon de eenheid niet verwijderen uit het leger.",
+    "errorRemovingUnit": "Er is een fout opgetreden bij het verwijderen van de eenheid.",
+    "noUnits": "Geen eenheden beschikbaar voor deze factie."
   }
 }
+
 
 
     

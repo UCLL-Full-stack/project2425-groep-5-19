@@ -6,6 +6,7 @@ import ComplaintOverviewTable from "@components/complaints/ComplaintOverviewTabl
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Complaint } from "@types";
+import { t } from "i18next";
 
 const Complaints: React.FC = () => {
     const [complaints, setComplaints] = useState<Array<Complaint>>([]);
@@ -25,7 +26,6 @@ const Complaints: React.FC = () => {
     };
 
     const handleRemoveComplaint = (userId: number) => {
-
         setComplaints((prev) => prev.filter((complaint) => complaint.userId !== userId));
     };
 
@@ -36,11 +36,11 @@ const Complaints: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Complaints</title>
+                <title>{t("complaints.title")}</title>
             </Head>
             <Header />
             <main className="p-6 min-h-screen flex flex-col items-center">
-                <h1 className="text-3xl font-bold mb-4">Complaints</h1>
+                <h1 className="text-3xl font-bold mb-4">Klachten</h1>
                 <section>
                     {error && <div className="text-red-800">{error}</div>}
 
@@ -48,12 +48,12 @@ const Complaints: React.FC = () => {
                         <ComplaintOverviewTable
                             complaints={complaints}
                             selectComplaint={setSelectedComplaint}
-                            removeComplaint={handleRemoveComplaint} // Pass removal handler
+                            removeComplaint={handleRemoveComplaint}
                         />
                     )}
 
                     {complaints.length === 0 && !error && (
-                        <div className="text-gray-600">No complaints available.</div>
+                        <div className="text-gray-600">Geen klachten beschikbaar.</div>
                     )}
                 </section>
             </main>
@@ -65,12 +65,13 @@ export const getServerSideProps = async (context: { locale: any; }) => {
     const { locale } = context;
     return {
         props: {
-            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+            ...(await serverSideTranslations(locale ?? "nl", ["common"])),
         }
     }
 }
 
 export default Complaints;
+
 
 
 
