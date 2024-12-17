@@ -4,13 +4,12 @@ import Header from "@components/header";
 import ArmyService from "@services/ArmyService";
 import ArmyOverviewTable from "@components/armies/ArmyOverviewTable";
 import UnitOverviewTable from "@components/units/UnitOverviewTable";
-import { Army } from "@types";
+import { Army, Unit } from "@types";
 
 const Armies: React.FC = () => {
     const [armies, setArmies] = useState<Array<Army>>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
-
 
     const getArmies = async () => {
         setError("");
@@ -22,10 +21,12 @@ const Armies: React.FC = () => {
             const armies = await response.json();
             setArmies(armies);
         }
+    };
 
-
-
-    }
+    const handleUnitClick = (unit: Unit) => {
+        // Handle unit click action here
+        console.log("Unit clicked:", unit);
+    };
 
     useEffect(() => {
         getArmies();
@@ -64,7 +65,10 @@ const Armies: React.FC = () => {
                         </h2>
 
                         {selectedArmy.units && selectedArmy.units.length > 0 ? (
-                            <UnitOverviewTable units={selectedArmy.units} />
+                            <UnitOverviewTable
+                                units={selectedArmy.units}
+                                onUnitClick={handleUnitClick} // Added the required prop
+                            />
                         ) : (
                             <div className="text-gray-600">
                                 No units assigned to this army.
@@ -78,4 +82,5 @@ const Armies: React.FC = () => {
 };
 
 export default Armies;
+
 

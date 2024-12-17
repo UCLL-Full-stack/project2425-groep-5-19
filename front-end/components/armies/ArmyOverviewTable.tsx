@@ -1,5 +1,6 @@
 import React from "react";
 import { Army } from "@types";
+import { useRouter } from "next/router";
 
 type Props = {
     armies: Array<Army>;
@@ -10,6 +11,12 @@ const ArmyOverviewTable: React.FC<Props> = ({
     armies,
     selectArmy,
 }: Props) => {
+    const router = useRouter();
+
+    const handleModifyClick = (armyID: number) => {
+        router.push(`/army/${armyID}`);
+    };
+
     return (
         <>
             {armies && (
@@ -22,6 +29,7 @@ const ArmyOverviewTable: React.FC<Props> = ({
                             <th className="border px-4 py-2">Defense</th>
                             <th className="border px-4 py-2">Hitpoints</th>
                             <th className="border px-4 py-2">Faction</th>
+                            <th className="border px-4 py-2">Actions</th> {/* New column */}
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +45,17 @@ const ArmyOverviewTable: React.FC<Props> = ({
                                 <td className="border px-4 py-2">{army.defense}</td>
                                 <td className="border px-4 py-2">{army.hitpoints}</td>
                                 <td className="border px-4 py-2">{army.faction}</td>
+                                <td className="border px-4 py-2">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent row click event
+                                            handleModifyClick(army.id);
+                                        }}
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
+                                    >
+                                        Modify
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -47,3 +66,4 @@ const ArmyOverviewTable: React.FC<Props> = ({
 };
 
 export default ArmyOverviewTable;
+
