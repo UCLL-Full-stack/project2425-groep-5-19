@@ -4,6 +4,7 @@ import Header from "@components/header";
 import UnitOverviewTable from "@components/units/UnitOverviewTable";
 import UnitService from "@services/UnitService";
 import { Unit } from "@types";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Units: React.FC = () => {
     const [units, setUnits] = useState<Array<Unit>>([]);
@@ -158,6 +159,15 @@ const Units: React.FC = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+    const { locale } = context;
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        }
+    }
+}
 
 export default Units;
 

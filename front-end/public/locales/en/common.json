@@ -1,29 +1,39 @@
 {
-"app.title": "Courses App",
-"general.error": "An error has occurred. Please try again later.",
-    "login": {
-    "title": "Login",
-    "button": "Login",
-    "success": "Login succesful. Redirecting to homepage...",
-    "validate": {
+        "app.title": "Courses App",
+        "meta.description": "Courses app to manage teaching and learning.",
+  "alt.logo": "Courses Logo",
+  "home": {
+    "title": "Welcome!",
+    "description": "Courses lets you see as a lecturer all the courses you are teaching and as a student all the courses you are enrolled in. You can also see when the courses are scheduled and the students enrolled in each course."
+  },
+        
+        "general.error": "An error has occurred. Please try again later.",
+        "login": {
+          "title": "Login",
+          "button": "Login",
+          "success": "Login successful. Redirecting to homepage...",
+          "validate": {
             "name": "Name is required",
             "password": "Password is required"
-    },
-    "label": { 
-        "username": "Username:", 
-        "password": "Password:" }
-},
-"header": {
-"welcome": "Welcome",
-"nav": {
-"home": "Home",
-"lecturers": "Lecturers",
-"schedules": "Schedules",
-"login": "Login",
-"logout": "Logout"
-}
-}
-}
+          },
+          "label": {
+            "username": "Username:",
+            "password": "Password:"
+          }
+        },
+        "header": {
+          "welcome": "Welcome",
+          "nav": {
+            "home": "Home",
+            "complaint": "Complaint",
+            "unit": "Units",
+            "army": "Armies",
+            "login": "Login",
+            "logout": "Logout"
+          }
+        }
+      }
+      
 
 
 

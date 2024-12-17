@@ -5,6 +5,9 @@ import UserService from "@services/UserService";
 import UserOverviewTable from "@components/users/UserOverviewTable";
 import { User } from "@types";
 
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 const Users: React.FC = () => {
     const [users, setUsers] = useState<Array<User>>([]);
     const [error, setError] = useState<string | null>(null);
@@ -48,6 +51,15 @@ const Users: React.FC = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+    const { locale } = context;
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        }
+    }
+}
 
 export default Users;
 

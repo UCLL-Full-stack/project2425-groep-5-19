@@ -5,6 +5,8 @@ import UnitOverviewTableMod from "@components/units/UnitOverviewTableMod";
 import ArmyService from "@services/ArmyService";
 import { Army, Unit } from "@types";
 import UnitService from "@services/UnitService";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 const ArmyDetailPage: React.FC = () => {
     const router = useRouter();
     const { armyID } = router.query;
@@ -121,6 +123,15 @@ const ArmyDetailPage: React.FC = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+    const { locale } = context;
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        }
+    }
+}
 export default ArmyDetailPage;
 
 

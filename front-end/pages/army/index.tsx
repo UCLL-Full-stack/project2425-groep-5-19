@@ -6,6 +6,8 @@ import ArmyOverviewTable from "@components/armies/ArmyOverviewTable";
 import UnitOverviewTable from "@components/units/UnitOverviewTable";
 import { Army, Unit } from "@types";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 const Armies: React.FC = () => {
     const [armies, setArmies] = useState<Array<Army>>([]);
     const [error, setError] = useState<string | null>(null);
@@ -24,7 +26,7 @@ const Armies: React.FC = () => {
     };
 
     const handleUnitClick = (unit: Unit) => {
-        // Handle unit click action here
+
         console.log("Unit clicked:", unit);
     };
 
@@ -67,7 +69,7 @@ const Armies: React.FC = () => {
                         {selectedArmy.units && selectedArmy.units.length > 0 ? (
                             <UnitOverviewTable
                                 units={selectedArmy.units}
-                                onUnitClick={handleUnitClick} // Added the required prop
+                                onUnitClick={handleUnitClick}
                             />
                         ) : (
                             <div className="text-gray-600">
@@ -80,6 +82,15 @@ const Armies: React.FC = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+    const { locale } = context;
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        }
+    }
+}
 
 export default Armies;
 

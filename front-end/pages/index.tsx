@@ -6,39 +6,34 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home: React.FC = () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation("common");
+
     return (
         <>
             <Head>
                 <title>{t('app.title')}</title>
-                <meta name="description" content="Courses app" />
+                <meta name="description" content={t('meta.description')} />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header></Header>
+            <Header />
             <main className="text-center md:p-24 p-6 min-h-screen">
                 <span className="flex flex-row justify-center items-center">
                     <Image
                         src="/../public/images/courses.png"
-                        alt="Courses Logo"
+                        alt={t('alt.logo')}
                         className={styles.vercelLogo}
                         width={50}
                         height={50}
                     />
-                    <h1 className="pl-6 text-4xl text-gray-800">Welcome!</h1>
+                    <h1 className="pl-6 text-4xl text-gray-800">{t('home.title')}</h1>
                 </span>
 
                 <div className="pt-6">
-                    <p>
-                        Courses lets you see as a lecturer all the courses you
-                        are teaching and as a student all the courses you are
-                        enrolled in. <br />
-                        You can also see when the courses are scheduled and the
-                        students enrolled in each course.
-                    </p>
+                    <p>{t('home.description')}</p>
                 </div>
             </main>
         </>
@@ -55,3 +50,4 @@ export const getServerSideProps = async (context: { locale: any; }) => {
 }
 
 export default Home;
+

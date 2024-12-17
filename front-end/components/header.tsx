@@ -56,11 +56,12 @@ const Header: React.FC = () => {
           {t("header.nav.unit")}
         </Link>
 
+        {/* User Link */}
         <Link
           href="/user"
           className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
         >
-          {t("header.user.unit")}
+          {t("header.nav.unit")}
         </Link>
 
         {/* Army Page Link */}
@@ -105,6 +106,7 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
 
 
 

@@ -1,0 +1,37 @@
+{
+    "app.title": "Cursussen App",
+    "meta.description": "Cursussen app om lesgeven en leren te beheren.",
+  "alt.logo": "Cursussen Logo",
+  "home": {
+    "title": "Welkom!",
+    "description": "Cursussen laten je zien als docent alle cursussen die je geeft en als student alle cursussen waarvoor je bent ingeschreven. Je kunt ook zien wanneer de cursussen zijn gepland en de studenten die zijn ingeschreven voor elke cursus."
+  },
+    "general.error": "Er is een fout opgetreden. Probeer het later opnieuw.",
+    "login": {
+      "title": "Inloggen",
+      "button": "Inloggen",
+      "success": "Inloggen succesvol. Doorverwijzen naar de startpagina...",
+      "validate": {
+        "name": "Naam is verplicht",
+        "password": "Wachtwoord is verplicht"
+      },
+      "label": {
+        "username": "Gebruikersnaam:",
+        "password": "Wachtwoord:"
+      }
+    },
+    "header": {
+      "welcome": "Welkom",
+      "nav": {
+        "home": "Startpagina",
+        "complaint": "Klacht",
+        "unit": "Eenheden",
+        "army": "Legers",
+        "login": "Inloggen",
+        "logout": "Uitloggen"
+      }
+    }
+  }
+  
+    
+   

@@ -3,6 +3,8 @@ import Header from "@components/header";
 import UserLoginForm from "@components/users/UserLoginForm";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
+
+
 const Login: React.FC = () => {
     return (
         <>
@@ -28,5 +30,8 @@ export const getServerSideProps = async (context: { locale: any; }) => {
         }
     }
 }
+
+
+
 
 export default Login;

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Header from "@components/header";
 import ComplaintService from "@services/ComplaintService";
 import ComplaintOverviewTable from "@components/complaints/ComplaintOverviewTable";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Complaint } from "@types";
 
@@ -59,6 +60,15 @@ const Complaints: React.FC = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (context: { locale: any; }) => {
+    const { locale } = context;
+    return {
+        props: {
+            ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        }
+    }
+}
 
 export default Complaints;
 
