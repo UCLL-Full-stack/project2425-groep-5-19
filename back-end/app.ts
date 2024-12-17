@@ -9,6 +9,7 @@ import { expressjwt } from 'express-jwt';
 import helmet from 'helmet';
 import { armyRouter } from './controller/army.routes';
 import { unitRouter } from './controller/unit.routes';
+import { complaintRouter } from './controller/complaints.routes';
 
 
 const app = express();
@@ -42,6 +43,7 @@ app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/armies', armyRouter);
 app.use('/units', unitRouter);
+app.use('/complaints', complaintRouter);
 
 app.get('/status', (req, res) => {
     res.json({ message: 'Courses API is running...' });

@@ -168,4 +168,40 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
     }
 });
 
+
+// userController.ts
+
+
+
+/**
+ * @swagger
+ * /users/delete/{id}:
+ *   delete:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Delete a user by their ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The user ID.
+ *     responses:
+ *       204:
+ *         description: User deleted successfully.
+ *       404:
+ *         description: User not found.
+ */
+userRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        await userService.deleteUser({ id });
+        res.status(204).send(); // No content
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 export { userRouter };

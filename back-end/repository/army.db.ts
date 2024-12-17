@@ -86,10 +86,38 @@ const getArmiesByUserId = async ({ userId }: { userId: number }): Promise<Army[]
     }
 };
 
+
+const updateArmyStats = async (
+    armyId: number,
+    updatedStats: { attack: number; defense: number; hitpoints: number }
+): Promise<Army> => {
+    try {
+        
+        const updatedArmy = await database.army.update({
+            where: { id: armyId },
+            data: updatedStats,
+            include: { units: true },
+        });
+
+        
+        const { units: rawUnits, ...armyData } = updatedArmy;
+
+        
+        const units = rawUnits.map(unit => Unit.from(unit));
+
+        
+        return Army.from(armyData, units);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
 export default {
     getAllArmies,
     getArmyById,
     createArmy,
     deleteArmyById,
     getArmiesByUserId,
+    updateArmyStats
 };

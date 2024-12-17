@@ -1,6 +1,7 @@
 import unitDB from '../repository/unit.db'; 
 import { UnitInput } from '../types'; 
 import { Unit } from '../model/unit'; 
+import armyService from '../service/army.service';
 
 
 const getAllUnits = async (): Promise<Unit[]> => {
@@ -33,9 +34,19 @@ const createUnit = async ({
 
 
 const addUnitToArmy = async (unitId: number, armyId: number): Promise<Unit> => {
-    const unit = await getUnitById({ id: unitId }); 
-    return await unitDB.addUnitToArmy(unitId, armyId);
+    
+    const unit = await getUnitById({ id: unitId });
+
+    
+    const addedUnit = await unitDB.addUnitToArmy(unitId, armyId);
+
+    
+    await armyService.updateArmyStats(armyId);
+
+    
+    return addedUnit;
 };
+
 
 
 const removeUnitFromArmy = async (unitId: number, armyId: number): Promise<Unit> => {

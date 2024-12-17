@@ -50,4 +50,25 @@ const createUser = async ({
     return await userDB.createUser(user);
 };
 
-export default { getUserByUsername, authenticate, createUser, getAllUsers };
+
+
+
+const getUserById = async ({ id }: { id: number }): Promise<User> => {
+    const user = await userDB.getUserById({ id });
+    if (!user) {
+        throw new Error(`User with ID: ${id} does not exist.`);
+    }
+    return user;
+};
+
+
+
+const deleteUser = async ({ id }: { id: number }): Promise<void> => {
+    await getUserById({ id }); 
+    await userDB.deleteUserById({ id });
+};
+
+export { deleteUser };
+
+
+export default { getUserByUsername, authenticate, createUser, getAllUsers, getUserById, deleteUser };

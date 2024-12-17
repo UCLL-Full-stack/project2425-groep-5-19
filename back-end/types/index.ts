@@ -31,7 +31,9 @@ type Unit = {
 type ArmyInput = {
     name: string;               
     userId: number;            
-         
+    attack: number;             
+    defense: number;           
+    hitpoints: number;          
     maxCost: number;           
     units: Unit[];
     faction: Faction
