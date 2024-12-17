@@ -2,6 +2,7 @@
 
 
 export type User = {
+    id: number;
     firstName?: string;
     lastName?: string;
     fullname?: string;
@@ -37,6 +38,11 @@ export interface Complaint {
     message: string;
     userId: number;
 }
+
+export type ComplaintInput = {
+    message: string; 
+    userId: number;  
+};
 
 
 

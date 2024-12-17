@@ -56,6 +56,13 @@ const Header: React.FC = () => {
           {t("header.nav.unit")}
         </Link>
 
+        <Link
+          href="/user"
+          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+        >
+          {t("header.user.unit")}
+        </Link>
+
         {/* Army Page Link */}
         <Link
           href="/army"

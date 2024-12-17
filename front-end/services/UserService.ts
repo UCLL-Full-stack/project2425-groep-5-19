@@ -37,9 +37,18 @@ const deleteUser = async (id: number): Promise<void> => {
     }
 };
 
+const getAllUsers = async (): Promise<Array<User>> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch all users");
+    }
+    return response.json();
+};
+
 const UserService = {
     loginUser,
     getUserById, deleteUser
+    , getAllUsers
 };
 
 
