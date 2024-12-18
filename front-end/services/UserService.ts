@@ -15,13 +15,38 @@ const loginUser = (user: User) => {
 
 
 
-const getUserById = async (userId: number) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`);
+const getUserById = async (userId: number): Promise<User> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,  
+        },
+    });
+
     if (!response.ok) {
         throw new Error("Failed to fetch user data");
     }
+
     const user = await response.json();
-    return user; 
+    return user;
+};
+
+
+const getAllUsers = async (): Promise<Array<User>> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,  
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch all users");
+    }
+
+    return response.json();
 };
 
 const deleteUser = async (id: number): Promise<void> => {
@@ -29,7 +54,7 @@ const deleteUser = async (id: number): Promise<void> => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Adjust token if necessary
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, 
         },
     });
 
@@ -38,13 +63,7 @@ const deleteUser = async (id: number): Promise<void> => {
     }
 };
 
-const getAllUsers = async (): Promise<Array<User>> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-    if (!response.ok) {
-        throw new Error("Failed to fetch all users");
-    }
-    return response.json();
-};
+
 
 const UserService = {
     loginUser,

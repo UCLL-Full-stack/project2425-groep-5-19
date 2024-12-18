@@ -5,6 +5,7 @@ const getAllComplaints = () => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
         },
     });
 };
@@ -14,6 +15,7 @@ const getComplaintById = (complaintId: string) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
         },
     });
 };
@@ -23,7 +25,7 @@ const createComplaint = async (complaintData: ComplaintInput) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`, // Include token for authentication
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(complaintData),
     });

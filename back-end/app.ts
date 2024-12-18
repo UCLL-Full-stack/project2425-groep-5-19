@@ -31,14 +31,14 @@ const port = process.env.APP_PORT || 3000;
 app.use(cors({ origin: 'http://localhost:8080' }));
 app.use(bodyParser.json());
 
-// app.use(
-//     expressjwt({
-//         secret: process.env.JWT_SECRET || 'default_secret',
-//         algorithms: ['HS256'],
-//     }).unless({
-//         path: ['/api-docs', /^\/api-docs\/.*/, '/users/login', '/users/signup', '/status'],
-//     })
-// );
+app.use(
+    expressjwt({
+        secret: process.env.JWT_SECRET || 'default_secret',
+        algorithms: ['HS256'],
+    }).unless({
+        path: ['/api-docs', /^\/api-docs\/.*/, '/users/login', '/users/signup', '/status'],
+    })
+);
 
 
 app.use('/users', userRouter);
