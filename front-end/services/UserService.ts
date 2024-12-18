@@ -1,7 +1,19 @@
 import { User } from "@types";
+const getToken = () => {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+      const token = JSON.parse(loggedInUser)?.token;
+      return token;
+    } else {
+      console.error("User not logged in or no token found");
+      return null;
+    }
+  };
+
 
 const loginUser = (user: User) => {
-    console.log(user)
+    
+    
     return fetch(process.env.NEXT_PUBLIC_API_URL + "/users/login", {
         method: "POST",
         headers: {
@@ -16,11 +28,13 @@ const loginUser = (user: User) => {
 
 
 const getUserById = async (userId: number): Promise<User> => {
+
+    const token = getToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`,  
+            "Authorization": `Bearer ${token}`,  
         },
     });
 
@@ -34,11 +48,12 @@ const getUserById = async (userId: number): Promise<User> => {
 
 
 const getAllUsers = async (): Promise<Array<User>> => {
+    const token = getToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`,  
+            "Authorization": `Bearer ${token}`,  
         },
     });
 
@@ -50,11 +65,12 @@ const getAllUsers = async (): Promise<Array<User>> => {
 };
 
 const deleteUser = async (id: number): Promise<void> => {
+    const token = getToken();
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+            'Authorization': `Bearer ${token}`, 
         },
     });
 
