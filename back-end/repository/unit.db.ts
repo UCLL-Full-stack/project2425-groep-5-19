@@ -104,7 +104,7 @@ const createUnit = async (unit: Unit): Promise<Unit> => {
         const newUnit = await database.unit.create({
             data: {
                 name: unit.getName(),
-                type: unit.getType(),
+                
                 points: unit.getPoints(),
                 
                 attack: unit.getAttack(),

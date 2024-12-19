@@ -21,6 +21,21 @@ const Units: React.FC = () => {
         points: 0,
     });
 
+    const [loggedInUser, setLoggedInUser] = useState<any | null>(null); // State to store logged-in user
+
+    // Retrieve logged-in user from localStorage
+    useEffect(() => {
+        const storedUser = localStorage.getItem("loggedInUser");
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                setLoggedInUser(parsedUser);
+            } catch (error) {
+                console.error("Error parsing loggedInUser from localStorage:", error);
+            }
+        }
+    }, []);
+
     const getUnits = async () => {
         setError("");
         const response = await UnitService.getAllUnits();
@@ -78,6 +93,8 @@ const Units: React.FC = () => {
         getUnits();
     }, []);
 
+    const isAdmin = loggedInUser?.role === "admin"; // Check if the logged-in user is an admin
+
     return (
         <>
             <Head>
@@ -103,8 +120,8 @@ const Units: React.FC = () => {
                     )}
                 </section>
 
-                {/* Selected Unit Form */}
-                {selectedUnit && (
+                {/* Show Unit Stats Form only if user is admin */}
+                {isAdmin && selectedUnit && (
                     <UnitStatsForm
                         unitName={t("updateStatsFor", { unitName: selectedUnit.name })}
                         formValues={formValues}
@@ -127,5 +144,6 @@ export const getServerSideProps = async (context: { locale: any }) => {
 };
 
 export default Units;
+
 
 

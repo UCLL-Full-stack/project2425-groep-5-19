@@ -4,7 +4,7 @@ import { Faction } from '../types';
 export class Unit {
     private id?: number;
     private name: string;
-    private type: string;
+    
     private points: number;
     
     private attack: number;
@@ -15,7 +15,7 @@ export class Unit {
     constructor(unit: {
         id?: number;
         name: string;
-        type: string;
+       
         points: number;
         
         attack: number;
@@ -25,7 +25,7 @@ export class Unit {
     }) {
         this.id = unit.id;
         this.name = unit.name;
-        this.type = unit.type;
+        
         this.points = unit.points;
         
         this.attack = unit.attack;
@@ -42,9 +42,7 @@ export class Unit {
         return this.name;
     }
 
-    getType(): string {
-        return this.type;
-    }
+    
 
     getPoints(): number {
         return this.points;
@@ -68,7 +66,7 @@ export class Unit {
         return this.faction;
     }
 
-    static from({ id, name, type, points,  attack, defense, hitpoints,faction }: UnitPrisma): Unit {
-        return new Unit({ id, name, type, points, attack, defense, hitpoints, faction: faction as Faction });
+    static from({ id, name, points,  attack, defense, hitpoints,faction }: UnitPrisma): Unit {
+        return new Unit({ id, name, points, attack, defense, hitpoints, faction: faction as Faction });
     }
 }

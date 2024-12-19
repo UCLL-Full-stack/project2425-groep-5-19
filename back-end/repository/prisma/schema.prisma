@@ -35,7 +35,6 @@ model Army {
 model Unit {
     id        Int    @id @default(autoincrement())
     name      String
-    type      String
     points    Int
     attack    Int
     defense   Int

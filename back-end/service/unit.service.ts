@@ -22,7 +22,7 @@ const getUnitById = async ({ id }: { id: number }): Promise<Unit> => {
 
 const createUnit = async ({
     name,
-    type,
+    
     points,
 
     attack,
@@ -30,7 +30,7 @@ const createUnit = async ({
     hitpoints,
     faction,
 }: UnitInput): Promise<Unit> => {
-    const unit = new Unit({ name, type, points, attack, defense, hitpoints, faction });
+    const unit = new Unit({ name,  points, attack, defense, hitpoints, faction });
     return await unitDB.createUnit(unit);
 };
 

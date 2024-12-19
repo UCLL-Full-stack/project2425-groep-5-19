@@ -17,7 +17,7 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
                     <thead>
                         <tr>
                             <th className="border px-4 py-2">{t("unit.table.name")}</th>
-                            <th className="border px-4 py-2">{t("unit.table.type")}</th>
+
                             <th className="border px-4 py-2">{t("unit.table.attack")}</th>
                             <th className="border px-4 py-2">{t("unit.table.defense")}</th>
                             <th className="border px-4 py-2">{t("unit.table.hitpoints")}</th>
@@ -32,7 +32,7 @@ const UnitOverviewTable: React.FC<Props> = ({ units, onUnitClick }: Props) => {
                                 onClick={() => onUnitClick(unit)}
                             >
                                 <td className="border px-4 py-2">{unit.name}</td>
-                                <td className="border px-4 py-2">{unit.type}</td>
+
                                 <td className="border px-4 py-2">{unit.attack}</td>
                                 <td className="border px-4 py-2">{unit.defense}</td>
                                 <td className="border px-4 py-2">{unit.hitpoints}</td>
