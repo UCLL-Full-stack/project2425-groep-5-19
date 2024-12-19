@@ -1,21 +1,23 @@
-import createUser from "@services/UserService";
-import { StatusMessage } from "../../types";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import UserService from "@services/UserService";
+import { StatusMessage } from "../../types";
 
 const UserSignup: React.FC = () => {
+  const { t } = useTranslation();
+
   const [userEmail, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
 
-  const [userName, setName] = useState<string>(''); // Username
+  const [userName, setName] = useState<string>('');
   const [nameError, setNameError] = useState<string>('');
 
   const [password, setPassword] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
 
-  const [firstName, setFirstName] = useState<string>(''); // New Field
-  const [lastName, setLastName] = useState<string>(''); // New Field
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
 
   const [statusMessage, setStatusMessage] = useState<StatusMessage | null>(null);
   const router = useRouter();
@@ -29,22 +31,22 @@ const UserSignup: React.FC = () => {
     let errorBool = true;
 
     if (!userName || userName.trim() === '') {
-      setNameError('User name is required');
+      setNameError(t('signup.usernameError'));
       errorBool = false;
     }
 
     if (!userEmail || userEmail.trim() === '') {
-      setEmailError('User email is required');
+      setEmailError(t('signup.emailError'));
       errorBool = false;
     }
 
     if (!/\S+@\S+\.\S+/.test(userEmail)) {
-      setEmailError('User email is invalid');
+      setEmailError(t('signup.invalidEmailError'));
       errorBool = false;
     }
 
     if (!password || password.trim() === '') {
-      setPasswordError('Password is required');
+      setPasswordError(t('signup.passwordError'));
       errorBool = false;
     }
 
@@ -69,13 +71,13 @@ const UserSignup: React.FC = () => {
 
       const user = await UserService.createUser(userInput);
 
-      setStatusMessage({ type: 'success', message: `User ${user.username} created successfully!` });
+      setStatusMessage({ type: 'success', message: t('signup.successMessage', { username: user.username }) });
 
       sessionStorage.setItem("email", userEmail);
       router.push('/');
     } catch (error: any) {
       setStatusMessage({
-        message: error.message || "An error occurred during signup.",
+        message: error.message || t('signup.errorMessage'),
         type: "error",
       });
     }
@@ -85,12 +87,12 @@ const UserSignup: React.FC = () => {
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
       <div className="mb-4">
         <label htmlFor="nameInput" className="block text-sm font-medium text-gray-600">
-          Username:
+          {t('signup.username')}:
         </label>
         <input
           id="nameInput"
           type="text"
-          placeholder="Username"
+          placeholder={t('signup.username')}
           value={userName}
           onChange={(event) => setName(event.target.value)}
           className="mt-1 p-2 w-full border rounded-md"
@@ -100,12 +102,12 @@ const UserSignup: React.FC = () => {
 
       <div className="mb-4">
         <label htmlFor="emailInput" className="block text-sm font-medium text-gray-600">
-          Email:
+          {t('signup.email')}:
         </label>
         <input
           id="emailInput"
           type="text"
-          placeholder="Email"
+          placeholder={t('signup.email')}
           value={userEmail}
           onChange={(event) => setEmail(event.target.value)}
           className="mt-1 p-2 w-full border rounded-md"
@@ -115,12 +117,12 @@ const UserSignup: React.FC = () => {
 
       <div className="mb-4">
         <label htmlFor="passwordInput" className="block text-sm font-medium text-gray-600">
-          Password:
+          {t('signup.password')}:
         </label>
         <input
           id="passwordInput"
           type="password"
-          placeholder="Password"
+          placeholder={t('signup.password')}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className="mt-1 p-2 w-full border rounded-md"
@@ -130,12 +132,12 @@ const UserSignup: React.FC = () => {
 
       <div className="mb-4">
         <label htmlFor="firstNameInput" className="block text-sm font-medium text-gray-600">
-          First Name:
+          {t('signup.firstName')}:
         </label>
         <input
           id="firstNameInput"
           type="text"
-          placeholder="First Name"
+          placeholder={t('signup.firstName')}
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
           className="mt-1 p-2 w-full border rounded-md"
@@ -144,12 +146,12 @@ const UserSignup: React.FC = () => {
 
       <div className="mb-4">
         <label htmlFor="lastNameInput" className="block text-sm font-medium text-gray-600">
-          Last Name:
+          {t('signup.lastName')}:
         </label>
         <input
           id="lastNameInput"
           type="text"
-          placeholder="Last Name"
+          placeholder={t('signup.lastName')}
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
           className="mt-1 p-2 w-full border rounded-md"
@@ -160,7 +162,7 @@ const UserSignup: React.FC = () => {
         type="submit"
         className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
       >
-        Sign Up
+        {t('signup.submitButton')}
       </button>
 
       {statusMessage && <div className={`mt-4 ${statusMessage.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>

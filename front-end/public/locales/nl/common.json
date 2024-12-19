@@ -154,7 +154,24 @@
     "failedToRemoveUnit": "Kon de eenheid niet verwijderen uit het leger.",
     "errorRemovingUnit": "Er is een fout opgetreden bij het verwijderen van de eenheid.",
     "noUnits": "Geen eenheden beschikbaar voor deze factie."
-  }
+  },
+  
+    "signup": {
+      "username": "Gebruikersnaam",
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "submitButton": "Aanmelden",
+      "usernameError": "Gebruikersnaam is verplicht",
+      "emailError": "E-mail is verplicht",
+      "invalidEmailError": "Geef een geldige e-mail op",
+      "passwordError": "Wachtwoord is verplicht",
+      "successMessage": "Gebruiker {{username}} succesvol aangemaakt!",
+      "errorMessage": "Er is een fout opgetreden tijdens de aanmelding"
+    }
+  
+  
 }
 
 

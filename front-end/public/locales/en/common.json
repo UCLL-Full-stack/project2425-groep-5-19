@@ -155,7 +155,26 @@
     "failedToRemoveUnit": "Failed to remove unit from the army.",
     "errorRemovingUnit": "An error occurred while removing the unit.",
     "noUnits": "No units available for this faction."
-  }
+    
+  },
+  
+    "signup": {
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "submitButton": "Sign Up",
+      "usernameError": "Username is required",
+      "emailError": "Email is required",
+      "invalidEmailError": "Please provide a valid email",
+      "passwordError": "Password is required",
+      "successMessage": "User {{username}} created successfully!",
+      "errorMessage": "An error occurred during signup"
+    }
+  
+  
+  
 
   
   
