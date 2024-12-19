@@ -84,7 +84,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import unitService from '../service/unit.service';
-import { Faction, UnitInput } from '../types';
+import { Faction, Role, UnitInput } from '../types';
 
 const unitRouter = express.Router();
 
@@ -318,14 +318,31 @@ unitRouter.put('/:unitId/remove-from-army/:armyId', async (req: Request, res: Re
  */
 unitRouter.put('/:unitId/update-stats', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        
+        const request = req as Request & { auth: { username: string; role: Role } };
+        const { role } = request.auth;
+
+        
+        if (role !== 'admin') {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
+        
         const unitId = parseInt(req.params.unitId, 10);
+
+       
         const updatedStats = req.body;
+
+        
         const unit = await unitService.updateUnitStats(unitId, updatedStats);
+
+        
         res.status(200).json(unit);
     } catch (error) {
-        next(error);
+        next(error);  
     }
 });
+
 
 
 /**

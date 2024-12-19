@@ -1,6 +1,7 @@
 import armyDB from '../repository/army.db';
 import { ArmyInput } from '../types';
 import { Army } from '../model/army';
+import userService from './user.service';
 
 
 const getAllArmies = async (): Promise<Army[]> => armyDB.getAllArmies();
@@ -57,6 +58,25 @@ const updateArmyStats = async (id: number): Promise<Army> => {
 
     return updatedArmy;
 };
+const getArmiesByUser = async ({ username }: { username: string }): Promise<Army[]> => {
+    
+        
+        const user = await userService.getUserByUsername({ username });
+        const id = user.getId();
+        
+        if (!user || !id) {
+            throw new Error(`User with username: ${username} does not exist or has no valid ID.`);
+        }
+
+        
+        const armies = await armyDB.getArmiesByUserId({ userId: id });
+
+        
+
+        return armies;
+     
+};
+
 
 
 export default {
@@ -65,5 +85,5 @@ export default {
     createArmy,
     deleteArmyById,
     getArmiesByUserId,
-    updateArmyStats
+    updateArmyStats, getArmiesByUser
 };

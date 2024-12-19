@@ -54,19 +54,25 @@ const complaintRouter = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Complaint'
  */
-complaintRouter.get('/', async (req: Request , res: Response, next: NextFunction) => {
+complaintRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        
         const request = req as Request & { auth: { username: string; role: Role } };
+        const { role } = request.auth;
 
-        const { username, role } = request.auth;
+        
+        if (role !== 'admin') {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
 
-        console.log(role)
+        
         const complaints = await complaintService.getAllComplaints();
         res.status(200).json(complaints);
     } catch (error) {
-        next(error);
+        next(error);  
     }
 });
+
 
 /**
  * @swagger
@@ -156,12 +162,27 @@ complaintRouter.post('/create', async (req: Request, res: Response, next: NextFu
  */
 complaintRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        
+        const request = req as Request & { auth: { username: string; role: Role } };
+        const { role } = request.auth;
+
+        
+        if (role !== 'admin') {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
+        
         const id = parseInt(req.params.id, 10);
+
+        
         await complaintService.deleteComplaintById({ id });
+
+        
         res.status(204).send();
     } catch (error) {
-        next(error);
+        next(error);  
     }
 });
+
 
 export { complaintRouter };

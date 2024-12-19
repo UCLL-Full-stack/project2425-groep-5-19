@@ -110,7 +110,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import armyService from '../service/army.service';
-import { ArmyInput } from '../types';
+import { ArmyInput, Role } from '../types';
 
 const armyRouter = express.Router();
 
@@ -133,12 +133,24 @@ const armyRouter = express.Router();
  */
 armyRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const armies = await armyService.getAllArmies();
-        res.status(200).json(armies);
+        const request = req as Request & { auth: { username: string; role: Role } };
+        const { role, username } = request.auth;
+
+        if (role === 'admin') {
+            
+            const armies = await armyService.getAllArmies();
+            return res.status(200).json(armies);
+        }
+
+        
+        const armies = await armyService.getArmiesByUser({ username });  
+        return res.status(200).json(armies);
     } catch (error) {
-        next(error);
+        next(error);  
     }
 });
+
+
 
 /**
  * @swagger

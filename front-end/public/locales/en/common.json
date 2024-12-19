@@ -23,6 +23,8 @@
   "header": {
     "welcome": "Welcome",
     "nav": {
+      "signup":"Signup",
+      "createArmy": "Create Army",
       "user":"Users",
       "home": "Home",
       "complaint": "Complaints",

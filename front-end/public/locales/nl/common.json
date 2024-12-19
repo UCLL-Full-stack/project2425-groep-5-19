@@ -23,6 +23,8 @@
   "header": {
     "welcome": "Welkom",
     "nav": {
+      "signup":"Registreren",
+      "createArmy": "Maak Leger",
       "user": "Gebruikers",
       "home": "Startpagina",
       "complaint": "Klachten",

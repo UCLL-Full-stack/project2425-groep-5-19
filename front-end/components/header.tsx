@@ -40,60 +40,78 @@ const Header: React.FC = () => {
           {t("header.nav.home")}
         </Link>
 
-        {/* Complaint Page Link */}
-        <Link
-          href="/complaint"
-          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-        >
-          {t("header.nav.complaint")}
-        </Link>
-
-        {/* Unit Page Link */}
-        <Link
-          href="/unit"
-          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-        >
-          {t("header.nav.unit")}
-        </Link>
-
-        {/* User Link */}
-        <Link
-          href="/user"
-          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-        >
-          {t("header.nav.user")}
-        </Link>
-
-        {/* Army Page Link */}
-        <Link
-          href="/army"
-          className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-        >
-          {t("header.nav.army")}
-        </Link>
-
-        {/* Login and Logout */}
+        {/* Links shown only when not logged in */}
         {!loggedInUser && (
-          <Link
-            href="/login"
-            className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-          >
-            {t("header.nav.login")}
-          </Link>
+          <>
+            <Link
+              href="/signup"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.signup")}
+            </Link>
+
+            <Link
+              href="/login"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.login")}
+            </Link>
+          </>
         )}
+
+        {/* Links shown only when logged in */}
         {loggedInUser && (
-          <a
-            href="/login"
-            onClick={handleClick}
-            className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
-          >
-            {t("header.nav.logout")}
-          </a>
-        )}
-        {loggedInUser && (
-          <div className="text-white ms-5 mt-2 md:mt-0 pt-1 md:pt-0 grow">
-            {t("header.welcome")}, {loggedInUser.fullname}!
-          </div>
+          <>
+            {/* Hide Complaint link if user is not an admin */}
+            {loggedInUser.role === "admin" && (
+              <Link
+                href="/complaint"
+                className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+              >
+                {t("header.nav.complaint")}
+              </Link>
+            )}
+
+            <Link
+              href="/unit"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.unit")}
+            </Link>
+
+            <Link
+              href="/user"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.user")}
+            </Link>
+
+            <Link
+              href="/army"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.army")}
+            </Link>
+
+            <Link
+              href="/create-army"
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.createArmy")}
+            </Link>
+
+            {/* Logout and Welcome Message */}
+            <a
+              href="/login"
+              onClick={handleClick}
+              className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
+            >
+              {t("header.nav.logout")}
+            </a>
+            <div className="text-white ms-5 mt-2 md:mt-0 pt-1 md:pt-0 grow">
+              {t("header.welcome")}, {loggedInUser.fullname}!
+            </div>
+          </>
         )}
 
         {/* Language Switcher */}
@@ -106,6 +124,9 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+
+
 
 
 
