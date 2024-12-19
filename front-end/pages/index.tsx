@@ -17,18 +17,12 @@ const Home: React.FC = () => {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.ico" />
+
             </Head>
             <Header />
             <main className="text-center md:p-24 p-6 min-h-screen">
                 <span className="flex flex-row justify-center items-center">
-                    <Image
-                        src="/../public/images/courses.png"
-                        alt={t('alt.logo')}
-                        className={styles.vercelLogo}
-                        width={50}
-                        height={50}
-                    />
+
                     <h1 className="pl-6 text-4xl text-gray-800">{t('home.title')}</h1>
                 </span>
 
