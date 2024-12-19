@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import complaintService from '../service/complaint.service';
+import { Role } from '../types';
 
 const complaintRouter = express.Router();
 
@@ -53,8 +54,13 @@ const complaintRouter = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Complaint'
  */
-complaintRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
+complaintRouter.get('/', async (req: Request , res: Response, next: NextFunction) => {
     try {
+        const request = req as Request & { auth: { username: string; role: Role } };
+
+        const { username, role } = request.auth;
+
+        console.log(role)
         const complaints = await complaintService.getAllComplaints();
         res.status(200).json(complaints);
     } catch (error) {
@@ -86,8 +92,9 @@ complaintRouter.get('/', async (req: Request, res: Response, next: NextFunction)
  *       404:
  *         description: Complaint not found.
  */
-complaintRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+complaintRouter.get('/:id', async (req: Request , res: Response, next: NextFunction) => {
     try {
+        
         const id = parseInt(req.params.id, 10);
         const complaint = await complaintService.getComplaintById({ id });
         res.status(200).json(complaint);

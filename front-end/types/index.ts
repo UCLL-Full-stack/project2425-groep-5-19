@@ -52,3 +52,13 @@ export type StatusMessage = {
     message: string;
     type: "error" | "success";
 };
+
+
+export type UserInput = {
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role?: string; 
+};

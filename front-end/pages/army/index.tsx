@@ -10,22 +10,21 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Armies: React.FC = () => {
-    const { t } = useTranslation("common"); // Hook for translations
+    const { t } = useTranslation("common");
     const [armies, setArmies] = useState<Array<Army>>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
 
     const getArmies = async () => {
-        setError("");
-        const response = await ArmyService.getAllArmies();
-
-        if (!response.ok) {
-            setError(t("armies.errorFetching"));
-        } else {
-            const armies = await response.json();
+        setError(null);
+        try {
+            const armies = await ArmyService.getAllArmies();
             setArmies(armies);
+        } catch (err: any) {
+            setError(err.message);
         }
     };
+
 
     const handleUnitClick = (unit: Unit) => {
         console.log(t("armies.unitClicked"), unit);

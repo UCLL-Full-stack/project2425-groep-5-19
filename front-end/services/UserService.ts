@@ -1,4 +1,4 @@
-import { User } from "@types";
+import { User, UserInput } from "@types";
 const getToken = () => {
     const loggedInUser = localStorage.getItem("loggedInUser");
     if (loggedInUser) {
@@ -79,12 +79,32 @@ const deleteUser = async (id: number): Promise<void> => {
     }
 };
 
+const createUser = async (user: UserInput): Promise<User> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to create user");
+    }
+
+    return response.json();
+};
+
+
+
 
 
 const UserService = {
     loginUser,
     getUserById, deleteUser
-    , getAllUsers
+    , getAllUsers,
+    createUser
 };
 
 

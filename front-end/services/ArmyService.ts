@@ -9,23 +9,32 @@ const getToken = () => {
   }
 };
 
-const getAllArmies = () => {
+const getAllArmies = async () => {
   const token = getToken();
 
-  
-  if (token) {
-    return fetch(process.env.NEXT_PUBLIC_API_URL + "/armies", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-  } else {
-    
-    throw new Error("Token is missing. Please log in first.");
+  if (!token) {
+    return Promise.reject(new Error("Please log in first."));
   }
+
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/armies", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      return Promise.reject(new Error("Unauthorized. Please log in."));
+    } else {
+      return Promise.reject(new Error(`Error fetching armies: ${response.statusText}`));
+    }
+  }
+
+  return response.json(); 
 };
+
 
   
 

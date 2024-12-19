@@ -7,12 +7,10 @@ import { User } from '../model/user';
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
 const getUserByUsername = async ({ username }: { username: string }): Promise<User> => {
-    // console.log( "verdome")
-    // console.log( username)
-    // console.log( "verdome2")
+   
 
     const user = await userDB.getUserByUsername({ username });
-    // console.log(user)
+    
     if (!user) {
         throw new Error(`User with username: ${username} does not exist.`);
     }
