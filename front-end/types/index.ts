@@ -2,14 +2,14 @@
 
 
 export type User = {
-    id?: number;
-    firstName?: string;
-    lastName?: string;
-    fullname?: string;
-    email?: string;
-    username?: string;
-    password?: string;
-    role?: string;
+    id: number;
+    firstName: string;
+    lastName: string;
+    fullname: string;
+    email: string;
+    username: string;
+    password: string;
+    role: string;
 };
 export type Unit = {
     id: number;

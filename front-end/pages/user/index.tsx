@@ -1,3 +1,5 @@
+// pages/users.tsx
+
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Header from "@components/header";
@@ -8,7 +10,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Users: React.FC = () => {
-    const { t } = useTranslation("common"); // Hook for translations
+    const { t } = useTranslation("common");
     const [users, setUsers] = useState<Array<User>>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -62,5 +64,7 @@ export const getServerSideProps = async (context: { locale: any }) => {
 };
 
 export default Users;
+
+
 
 
