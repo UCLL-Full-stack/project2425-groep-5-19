@@ -68,6 +68,13 @@ const deleteUserById = async ({ id }: { id: number }): Promise<void> => {
         });
 
         
+        await database.army.deleteMany({
+            where: {
+                userId: id, 
+            },
+        });
+
+        
         await database.user.delete({
             where: {
                 id: id, 
@@ -78,6 +85,7 @@ const deleteUserById = async ({ id }: { id: number }): Promise<void> => {
         throw new Error("Failed to delete user or related complaints.");
     }
 };
+
 
 
 export default {

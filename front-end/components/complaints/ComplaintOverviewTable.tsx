@@ -9,9 +9,10 @@ type Props = {
     removeComplaint: (complaintId: number) => void;
 };
 
-const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, removeComplaint }: Props) => {
+const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, removeComplaint }) => {
     const [users, setUsers] = useState<{ [userId: number]: User }>({});
     const { t } = useTranslation();
+
 
     const getUserName = async (userId: number) => {
         if (users[userId]) return;
@@ -24,20 +25,28 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
         }
     };
 
-    const handleDeleteUser = async (userId: number) => {
-        try {
-            await UserService.deleteUser(userId);
-            removeComplaint(userId); // Notify parent to refresh complaints
-        } catch (error) {
-            console.error(t("complaints.errors.deleteUser"), error);
-        }
-    };
 
     useEffect(() => {
         complaints.forEach((complaint) => {
             getUserName(complaint.userId);
         });
     }, [complaints]);
+
+
+    const handleDeleteUser = async (userId: number) => {
+        try {
+            await UserService.deleteUser(userId);
+
+            removeComplaint(userId);
+            setUsers((prevUsers) => {
+                const newUsers = { ...prevUsers };
+                delete newUsers[userId];
+                return newUsers;
+            });
+        } catch (error) {
+            console.error(t("complaints.errors.deleteUser"), error);
+        }
+    };
 
     return (
         <table className="text-left w-full">
@@ -80,6 +89,8 @@ const ComplaintOverviewTable: React.FC<Props> = ({ complaints, selectComplaint, 
 };
 
 export default ComplaintOverviewTable;
+
+
 
 
 

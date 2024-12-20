@@ -79,7 +79,7 @@ const deleteUser = async ({ id }: { id: number }): Promise<void> => {
     await userDB.deleteUserById({ id });
 };
 
-export { deleteUser };
+
 
 
 export default { getUserByUsername, authenticate, createUser, getAllUsers, getUserById, deleteUser };
