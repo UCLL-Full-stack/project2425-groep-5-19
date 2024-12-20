@@ -94,7 +94,7 @@ const Header: React.FC = () => {
             </Link>
 
             <Link
-              href="/create-army"
+              href="/army/createArmy"
               className="px-4 text-xl text-white hover:bg-gray-600 rounded-lg"
             >
               {t("header.nav.createArmy")}
